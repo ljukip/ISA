@@ -34,6 +34,12 @@ public class Soba {
 	
 	@ManyToOne
 	private Hotel hotel;
+	
+	@OneToMany(mappedBy = "soba")
+	private List<CenovnikSobe> cenovnici;
+	
+	@ManyToMany(mappedBy = "sobe")
+	private List<ZakupSoba> zakupi;
 
 	
 	
@@ -91,6 +97,23 @@ public class Soba {
 		this.sprat = novaSoba.getSprat();
 		this.brojKreveta = novaSoba.getBrojKreveta();
 		this.tip = novaSoba.getTip();
+	}
+	
+	public List<CenovnikSobe> getCenovnici() {
+		return cenovnici;
+	}
+
+	public void setCenovnici(List<CenovnikSobe> cenovnici) {
+		this.cenovnici = cenovnici;
+	}
+
+
+	public List<ZakupSoba> getZakupi() {
+		return zakupi;
+	}
+
+	public void setZakupi(List<ZakupSoba> zakupi) {
+		this.zakupi = zakupi;
 	}
 	
 }

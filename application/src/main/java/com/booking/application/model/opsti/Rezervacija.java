@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import com.booking.application.model.hotel.ZakupSoba;
+import com.booking.application.model.korisnici.PozivNaRezervaciju;
 
 import com.booking.application.model.korisnici.KorisnikNaRezervaciji;
 
@@ -21,6 +23,13 @@ public class Rezervacija {
     
     @OneToMany(mappedBy = "rezervacija")
     private List<KorisnikNaRezervaciji> spojKorisnika;
+    
+    @OneToOne
+    private ZakupSoba zakupSoba;
+
+
+    @OneToMany(mappedBy = "rezervacija")
+    private List<PozivNaRezervaciju> pozivi;
     
     
     public Rezervacija() { }
@@ -42,5 +51,22 @@ public class Rezervacija {
 		this.spojKorisnika = spojKorisnika;
 	}
 
+	public ZakupSoba getZakupSoba() {
+		return zakupSoba;
+	}
+
+	public void setZakupSoba(ZakupSoba zakupSoba) {
+		this.zakupSoba = zakupSoba;
+	}
+
+
+
+	public List<PozivNaRezervaciju> getPozivi() {
+		return pozivi;
+	}
+
+	public void setPozivi(List<PozivNaRezervaciju> pozivi) {
+		this.pozivi = pozivi;
+	}
 	
 }

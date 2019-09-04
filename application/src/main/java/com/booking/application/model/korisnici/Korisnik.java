@@ -39,6 +39,23 @@ public class Korisnik {
 	
 	@OneToMany(mappedBy = "korisnik")
 	private List<KorisnikNaRezervaciji> spojRezervacije;
+	@OneToMany(mappedBy = "poslao")
+	private List<ZahtevZaPrijateljstvo> poslatiZahtevi;
+	
+	@OneToMany(mappedBy = "primio")
+	private List<ZahtevZaPrijateljstvo> primljeniZahtevi;
+	
+	@OneToMany(mappedBy = "poslao")
+	private List<PozivNaRezervaciju> poslatiPozivi;
+	
+	@OneToMany(mappedBy = "primio")
+	private List<PozivNaRezervaciju> primljeniPozivi;
+	
+	@OneToMany(mappedBy = "prijatelj1")
+	private List<Prijateljstvo> prijateljstva1;
+	
+	@OneToMany(mappedBy = "prijatelj2")
+	private List<Prijateljstvo> prijateljstva2;
 	
 	
 	
@@ -124,6 +141,54 @@ public class Korisnik {
 		this.lozinka = korisnik.getLozinka();
 		this.grad = korisnik.getGrad();
 		this.telefon = korisnik.getTelefon();
+	}
+	
+	public List<ZahtevZaPrijateljstvo> getPoslatiZahtevi() {
+		return poslatiZahtevi;
+	}
+
+	public void setPoslatiZahtevi(List<ZahtevZaPrijateljstvo> poslatiZahtevi) {
+		this.poslatiZahtevi = poslatiZahtevi;
+	}
+
+	public List<ZahtevZaPrijateljstvo> getPrimljeniZahtevi() {
+		return primljeniZahtevi;
+	}
+
+	public void setPrimljeniZahtevi(List<ZahtevZaPrijateljstvo> primljeniZahtevi) {
+		this.primljeniZahtevi = primljeniZahtevi;
+	}
+
+	public List<PozivNaRezervaciju> getPoslatiPozivi() {
+		return poslatiPozivi;
+	}
+
+	public void setPoslatiPozivi(List<PozivNaRezervaciju> poslatiPozivi) {
+		this.poslatiPozivi = poslatiPozivi;
+	}
+
+	public List<PozivNaRezervaciju> getPrimljeniPozivi() {
+		return primljeniPozivi;
+	}
+
+	public void setPrimljeniPozivi(List<PozivNaRezervaciju> primljeniPozivi) {
+		this.primljeniPozivi = primljeniPozivi;
+	}
+
+	public List<Prijateljstvo> getPrijateljstva1() {
+		return prijateljstva1;
+	}
+
+	public void setPrijateljstva1(List<Prijateljstvo> prijateljstva1) {
+		this.prijateljstva1 = prijateljstva1;
+	}
+
+	public List<Prijateljstvo> getPrijateljstva2() {
+		return prijateljstva2;
+	}
+
+	public void setPrijateljstva2(List<Prijateljstvo> prijateljstva2) {
+		this.prijateljstva2 = prijateljstva2;
 	}
 	
 }

@@ -27,6 +27,8 @@ public class Opcija {
 	@ManyToOne
 	private Hotel hotel;
 
+	@ManyToMany(mappedBy = "opcije")
+	private List<ZakupSoba> zakupi;
 	
 	
 	public Opcija() { }
@@ -73,6 +75,14 @@ public class Opcija {
 	public void prekopiraj(Opcija novaOpcija) {
 		this.naziv = novaOpcija.getNaziv();
 		this.cena = novaOpcija.getCena();
+	}
+	
+	public List<ZakupSoba> getZakupi() {
+		return zakupi;
+	}
+
+	public void setZakupi(List<ZakupSoba> zakupi) {
+		this.zakupi = zakupi;
 	}
 	
 }
