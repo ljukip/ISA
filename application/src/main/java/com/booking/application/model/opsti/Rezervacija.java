@@ -12,6 +12,9 @@ import com.booking.application.model.hotel.ZakupSoba;
 import com.booking.application.model.korisnici.PozivNaRezervaciju;
 
 import com.booking.application.model.korisnici.KorisnikNaRezervaciji;
+import com.booking.application.model.avionskakompanija.AvionskaKarta;
+import com.booking.application.model.vozila.ZakupVozila;
+
 
 @Entity
 public class Rezervacija {
@@ -27,6 +30,11 @@ public class Rezervacija {
     @OneToOne
     private ZakupSoba zakupSoba;
 
+    @OneToOne
+    private ZakupVozila zakupVozila;
+    
+    @OneToOne
+    private AvionskaKarta avionskaKarta;
 
     @OneToMany(mappedBy = "rezervacija")
     private List<PozivNaRezervaciju> pozivi;
@@ -59,6 +67,22 @@ public class Rezervacija {
 		this.zakupSoba = zakupSoba;
 	}
 
+	public ZakupVozila getZakupVozila() {
+		return zakupVozila;
+	}
+
+	public void setZakupVozila(ZakupVozila zakupVozila) {
+		this.zakupVozila = zakupVozila;
+	}
+
+	public AvionskaKarta getAvionskaKarta() {
+		return avionskaKarta;
+	}
+
+	public void setAvionskaKarta(AvionskaKarta avionskaKarta) {
+		this.avionskaKarta = avionskaKarta;
+	}
+	
 
 
 	public List<PozivNaRezervaciju> getPozivi() {
