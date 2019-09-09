@@ -1,0 +1,62 @@
+<div class="row">
+    <div *ngIf = "vidjivoBrzeRezervacije()" class="col-md-8 col-sm-offset-4 brzaRezervacija">
+        <img style="max-width: 100%; height: 200px;" class="img-fluid" (click) = "brzaRezervacija()" src="assets/hotel/SALE.jpg"/>
+    </div>
+  <!-- <div class="col-md-8 col-sm-offset-2" style="margin-bottom: 15px;">
+        <form class="md-form mr-auto mb-4">
+                <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td>
+                        <label>Adresa servisa</label>
+                    <ng-multiselect-dropdown [placeholder]="'Adresa'" [data]="adreseRenta" [(ngModel)]="izabranaAdresa" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                    </ng-multiselect-dropdown>
+                </td>
+                <td>
+                    <label>Naziv servisa</label>
+                    <ng-multiselect-dropdown [placeholder]="'Naziv'" [data]="naziviRenta" [(ngModel)]="izabraniNaziv" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                    </ng-multiselect-dropdown>
+                </td>
+                <td>
+                        <input class="form-control mr-sm-2" style="margin-top:24px;" type="button" value="Trazi" aria-label="Search" (click) = "trazi()">
+                </td>
+            </tr>
+    </table>
+      </form>
+  </div> -->
+    <div class="col-md-8 col-sm-offset-2">
+          <div class="list-group">
+            <a class="list-group-item" style="min-height: 220px; max-height: 350px;" *ngFor = "let i = index; let hotel of hoteli | paginate: { itemsPerPage: 5, currentPage: p }">
+                  <div class="media col-md-3">
+                      <figure class="pull-left">
+                          <img class="media-object img-rounded img-responsive"  src="assets/hotel.jpg" alt="placehold.it/350x250" (click)="viewDetails(hotel.id)">
+                      </figure>
+                  </div>
+                  <div class="col-md-6">
+                    <a (click)="getAllSort('naziv')">{{hotel.naziv}} </a>
+                    <a (click)="getAllSort('adresa')"> <small><i>{{hotel.adresaDTO.zemlja}}</i></small> <small><i>{{hotel.adresaDTO.grad}}</i></small> 
+                      <small><i>{{hotel.adresaDTO.ulica}}</i></small> <small><i>{{hotel.adresaDTO.broj}}</i></small></a>
+                    <span class="glyphicon glyphicon-map-marker" (click) = "pokaziMapu(hotel.longitude, hotel.latitude)" ></span>
+                    <p class="group inner list-group-item-text">
+                      {{hotel.opis}}</p>
+                  </div>
+                  <div *ngIf="ulogovaniKorisnikImaDozvoluDaBrise()" class="col-md-2" style="margin-top: 5px; padding: 0px;">
+                    <span class="glyphicon glyphicon-trash" (click) = "delete(hotel.id)"></span>
+                </div>
+                <div *ngIf="ulogovaniKorisnikImaDozvoluDaMenja()" class="col-md-2" style="margin-top: 5px; padding: 0px;">
+                    <span class="glyphicon glyphicon-wrench" (click) = "update(hotel.id)"></span>
+                </div>
+                <button *ngIf="ulogovaniKorisnikImaDozvoluDaMenja()" (click) = "createOption(hotel.id)" >Kreiraj Opciju
+                </button>
+                <button *ngIf="ulogovaniKorisnikImaDozvoluDaMenja()" (click) = "createRoom(hotel.id)" >Kreiraj Sobu
+                  </button>
+                  <button *ngIf="ulogovaniKorisnikImaDozvoluDaMenja()" (click) = "viewOption(hotel.id)" >Vidi Opcije
+                    </button>
+            </a>
+          </div>
+          
+      <div class="item col-lg-10 col-lg-10" style="width: 100%; text-align: center;">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>

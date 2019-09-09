@@ -1,0 +1,46 @@
+<div class="container" style="display: flex; justify-content: center;">
+    <div class="col-md-5 form">
+        <div class="form-area">  
+            <form role="form"  #formVozilo="ngForm">
+            <br style="clear:both">
+                        <h3 style="margin-bottom: 25px; text-align: center;">Azuriranje/Dodavanje Sobe</h3>
+              <div class="form-group">
+                  <label>Sprat</label>
+                  <input type="text" class="form-control" minlength="1" #naziv="ngModel" id="model" name="model" placeholder="Sprat" required [(ngModel)] = "soba.sprat">
+                  <small [hidden]="naziv.valid || (naziv.pristine && !formVozilo.submitted)" class="text-danger">
+                    Sprat je obavezan (veci od nule).
+                  </small>
+              </div>
+              <div class="form-group">
+                <label>Tip</label>
+                <input type="text" class="form-control"  minlength="3"  maxlength="30" #tip="ngModel" id="tip" name="tip" placeholder="Tip" required [(ngModel)] = "soba.tip">
+                <small [hidden]="tip.valid || (tip.pristine && !formVozilo.submitted)" class="text-danger">
+                  Tip je obavezan (minimum 3 karaktera a maksimum 30 karaktera).
+                </small>
+              </div>
+              <div class="form-group">
+                  <label>Cena vozila</label>
+                  <input type="text" class="form-control"  #cena="ngModel" id="cena" name="cena" placeholder="Cena po danu" required [(ngModel)] = "soba.cenaPoDanu">
+                  <small [hidden]="cena.valid || (cena.pristine && !formVozilo.submitted)" class="text-danger">
+                    Cena po danu je obavezna (pozitivan broj).
+                  </small>
+                </div>
+              <div class="form-group">
+                <label>Broj putnika vozila</label>
+                <input type="text" #brojSedista="ngModel" class="form-control" id="sediste" name="sediste" placeholder="Broj kreveta" required [(ngModel)] = "soba.brojKreveta">
+                <small [hidden]="brojSedista.valid || (brojSedista.pristine && !formVozilo.submitted)" class="text-danger">
+                  Broj kreveta je obavezan (pozitivan broj).
+                </small>
+              </div>
+               
+              <div *ngIf="isDataAvailable">
+                <button type="button" [disabled]="!formVozilo.valid" id="submit" name="submit" class="btn btn-primary pull-right" style="margin:5px;" (click) = "update()">Azuriraj</button>
+              </div>
+              <div *ngIf="!isDataAvailable">
+                <button type="button" [disabled]="!formVozilo.valid" id="submit" name="submit" class="btn btn-primary pull-right" style="margin:5px;" (click) = "create()">Dodaj</button>
+              </div>
+              <button type="button" id="submit" name="submit" class="btn btn-primary pull-right" style="margin:5px;" (click) = "goBack()">Odustani</button>
+            </form>
+        </div>
+    </div>
+    </div>

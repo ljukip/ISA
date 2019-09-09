@@ -1,0 +1,69 @@
+<div class="container" style="display: flex; justify-content: center;">
+    <div class="col-md-5 form">
+        <div class="form-area">  
+            <form role="form" #formRent="ngForm">
+            <br style="clear:both">
+                        <h3 style="margin-bottom: 25px; text-align: center;">Azuriranje Hotela</h3>
+              <div class="form-group">
+                  <input type="text" class="form-control" id="naziv" minlength="3" maxlength="30" #naziv="ngModel" name="naziv" placeholder="Naziv" required [(ngModel)] = "hotel.naziv">
+                  <small [hidden]="naziv.valid || (naziv.pristine && !formRent.submitted)" class="text-danger">
+                    Naziv je obavezan(minimum 3 karaktera a maksimum 30 karaktera).
+                  </small>
+              </div>
+               <div class="form-group">
+                  <label>Zemlja</label>
+                <input type="text" class="form-control" id="zemlja" name="zemlja" minlength="3" maxlength="30" #zemlja="ngModel" placeholder="zemlja" required [(ngModel)] = "hotel.adresaDTO.zemlja">
+                <small [hidden]="zemlja.valid || (zemlja.pristine && !formRent.submitted)" class="text-danger">
+                  Zemlja je obavezna (minimum 3 karaktera a maksimum 30 karaktera).
+                </small>
+              </div>
+              <div class="form-group">
+                  <label>Grad</label>
+                <input type="text" class="form-control" id="grad" name="grad" minlength="3" maxlength="30" #grad="ngModel" placeholder="grad" required [(ngModel)] = "hotel.adresaDTO.grad">
+                <small [hidden]="grad.valid || (grad.pristine && !formRent.submitted)" class="text-danger">
+                  Grad je obavezan (minimum 3 karaktera a maksimum 30 karaktera).
+                </small>
+              </div>
+              <div class="form-group">
+                  <label>Ulica</label>
+                <input type="text" class="form-control" id="ulica" name="ulica" minlength="3" maxlength="30" #ulica="ngModel" placeholder="ulica" required [(ngModel)] = "hotel.adresaDTO.ulica">
+                <small [hidden]="ulica.valid || (ulica.pristine && !formRent.submitted)" class="text-danger">
+                  Ulica je obavezna (minimum 3 karaktera a maksimum 30 karaktera).
+                </small>
+              </div>
+              <div class="form-group">
+                  <label>Broj</label>
+                <input type="text" class="form-control" id="broj" name="broj" minlength="1"  #broj="ngModel" placeholder="broj" required [(ngModel)] = "hotel.adresaDTO.broj">
+                <small [hidden]="broj.valid || (broj.pristine && !formRent.submitted)" class="text-danger">
+                  Broj je obavezan (Veci od 0).
+                </small> 
+              </div>
+              <div class="form-group">
+                <label>Geografska duzina</label>
+              <input type="text" class="form-control" minlength="1" maxlength="30" id="duzina" name="duzina" #duzina = "ngModel" placeholder="Geografska duzina" required [(ngModel)] = "hotel.longitude">
+              <small [hidden]="duzina.valid || (duzina.pristine && !formRent.submitted)" class="text-danger">
+                Geografska duzina je obavezna (minimum 1 karaktera a maksimum 30 karaktera).
+              </small>
+              </div>
+              <div class="form-group">
+                  <label>Geografska sirina</label>
+                <input type="text" class="form-control" maxlength="30" id="sirina" name="sirina" #sirina = "ngModel" placeholder="Geografska sirina" required [(ngModel)] = "hotel.latitude">
+                <small [hidden]="sirina.valid || (sirina.pristine && !formRent.submitted)" class="text-danger">
+                  Geografska sirina je obavezna (minimum 1 karaktera a maksimum 30 karaktera).
+                </small>
+              </div>
+              <div class="form-group">
+                <textarea [(ngModel)] = "hotel.opis" maxlength="140" #opis="ngModel" [ngModelOptions]="{standalone: true}" class="form-control" type="textarea" id="promotivniOpis" placeholder="Promotivni opis" maxlength="140" rows="7" style="max-width: 100%; min-width: 100%;" ></textarea>
+                <span class="help-block"><p id="characterLeft" class="help-block ">Maksimum 140 karaktera</p></span>                    
+                <small [hidden]="opis.valid || (opis.pristine && !formRent.submitted)" class="text-danger">
+                  Promotivni opis je obavezan (minimum 3 karaktera a maksimum 140 karaktera).
+                </small>
+              </div>
+                
+            <button *ngIf="isDataAvailable" type="button" [disabled]="!formRent.valid" id="submit" style="margin:5px;" name="submit" class="btn btn-primary pull-right" (click) = "update()">Azuriraj</button>
+            <button *ngIf="!isDataAvailable" type="button" [disabled]="!formRent.valid" id="submit" style="margin:5px;" name="submit" class="btn btn-primary pull-right" (click) = "save()">Kreiraj</button>
+            <button type="button" id="submit" name="submit" style="margin:5px;" class="btn btn-primary pull-right" (click) = "goBack()">Odustani</button>
+            </form>
+        </div>
+    </div>
+    </div>

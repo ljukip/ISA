@@ -1,0 +1,39 @@
+<div class="container" style="display: flex; justify-content: center;">
+    <div class="col-md-5 form">
+        <div class="form-area">  
+            <form role="form" #formFilijala="ngForm">
+            <br style="clear:both">
+                        <h3 style="margin-bottom: 25px; text-align: center;">Azuriranje/Dodavanje cenovnika</h3>
+                <div class="form-group">
+                <label>Pocetni datum </label>
+                <input class="form-control mr-sm-2" placeholder="Pocetni datum:" 
+                [(ngModel)]="cenovnik.pocetniDatum"
+                [min]="min"
+                (change)="promenaDatuma()"
+                [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"  [ngModelOptions]="{standalone: true}">
+        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+              </div>
+              <div class="form-group">
+                  <label>Krajnji datum </label>
+                  <input class="form-control mr-sm-2" placeholder="Krajnji datum:" 
+                  [(ngModel)]="cenovnik.krajnjiDatum"
+                  [min]="min"
+                  (change)="promenaDatuma()"
+                  [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"  [ngModelOptions]="{standalone: true}">
+          <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                </div>
+              <div class="form-group">
+                    <label>Cena</label>
+                  <input type="text" class="form-control" id="cena" name="cena" minlength="1" #zemlja="ngModel" placeholder="cena" required [(ngModel)] = "cenovnik.cena">
+                  <small [hidden]="zemlja.valid || (zemlja.pristine && !formFilijala.submitted)" class="text-danger">
+                    Cena je obavezna (veca od nule).
+                  </small>
+                 </div>
+              <button *ngIf="isDataAvailable" type="button" [disabled]="!formFilijala.valid" id="submit" name="submit" class="btn btn-primary pull-right" (click) = "update()">Azuriraj</button>
+              <button *ngIf="!isDataAvailable" type="button" [disabled]="!formFilijala.valid" id="submit" name="submit" class="btn btn-primary pull-right" (click) = "save()">Kreiraj</button>
+              
+              <button type="button" id="submit" name="submit" class="btn btn-primary pull-right" (click) = "goBack()">Odustani</button>
+            </form>
+        </div>
+    </div>
+    </div>

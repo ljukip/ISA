@@ -1,0 +1,28 @@
+<div class="container" style="display: flex; justify-content: center;">
+    <div class="col-md-5 form">
+        <div class="form-area">  
+            <form role="form" #formFilijala="ngForm">
+            <br style="clear:both">
+                        <h3 style="margin-bottom: 25px; text-align: center;">Azuriranje/Dodavanje Opcije</h3>
+                <div class="form-group">
+                <label>Ime </label>
+                <input type="text"  class="form-control" minlength="3" maxlength="30" #ime="ngModel" id="ime" name="ime" placeholder="Ime" required [(ngModel)] = "opcija.naziv">
+                <small [hidden]="ime.valid || (ime.pristine && !formFilijala.submitted)" class="text-danger">
+                    Ime je obavezno (minimum 3 karaktera a maksimum 30 karaktera).
+                </small>
+              </div>
+              <div class="form-group">
+                    <label>Cena</label>
+                  <input type="text" class="form-control" id="cena" name="cena" minlength="1" #zemlja="ngModel" placeholder="cena" required [(ngModel)] = "opcija.cena">
+                  <small [hidden]="zemlja.valid || (zemlja.pristine && !formFilijala.submitted)" class="text-danger">
+                    Cena je obavezna (veca od nule).
+                  </small>
+                 </div>
+              <button *ngIf="isDataAvailable" type="button" [disabled]="!formFilijala.valid" id="submit" name="submit" class="btn btn-primary pull-right" (click) = "update()">Azuriraj</button>
+              <button *ngIf="!isDataAvailable" type="button" [disabled]="!formFilijala.valid" id="submit" name="submit" class="btn btn-primary pull-right" (click) = "save()">Kreiraj</button>
+              
+              <button type="button" id="submit" name="submit" class="btn btn-primary pull-right" (click) = "goBack()">Odustani</button>
+            </form>
+        </div>
+    </div>
+    </div>

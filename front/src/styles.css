@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+/*.owl-dt-calendar-table .owl-dt-calendar-header .owl-dt-weekdays th {
+    font-size: 1.5em !important; 
+} */
+
+.owl-dt-calendar-table .owl-dt-calendar-cell-content { 
+   font-size: 1.2em;
+}
+
+.dropdown-btn[_ngcontent-c2]{
+    background: white;
+    min-width: 180px;
+}
