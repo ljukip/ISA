@@ -1,4 +1,4 @@
-package com.booking.application.model.hotel;
+package com.booking.application.model.vozila;
 
 import java.util.List;
 
@@ -10,12 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.booking.application.dto.hotel.HotelDTO;
-import com.booking.application.model.opsti.Adresa;
+import com.booking.application.dto.vozila.KompanijaVozilaDTO;
 import com.booking.application.model.korisnici.AdminKompanije;
+import com.booking.application.model.opsti.Adresa;
 
 @Entity
-public class Hotel {
+public class KompanijaVozila {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,37 +28,26 @@ public class Hotel {
 	@OneToOne
 	private Adresa adresa;
 	
-	@OneToMany(mappedBy = "hotel")
-	private List<Opcija> opcije;
-
-	@OneToMany(mappedBy = "hotel")
+	@OneToMany(mappedBy = "kompanijaVozila")
 	private List<AdminKompanije> admini;
 	
-	@OneToMany(mappedBy = "hotel")
-	private List<Soba> sobe;
+	@OneToMany(mappedBy = "kompanija")
+	private List<Garaza> garaze;
 	
-	public Hotel() { }
-	
-	public Hotel(HotelDTO hotelDTO) {
-		this.id = hotelDTO.getId();
-		this.naziv = hotelDTO.getNaziv();
-		this.opis = hotelDTO.getOpis();
+	public KompanijaVozila() { }
+
+	public KompanijaVozila(KompanijaVozilaDTO kompanijaDTO) {
+		this.id = kompanijaDTO.getId();
+		this.naziv = kompanijaDTO.getNaziv();
+		this.opis = kompanijaDTO.getOpis();
 	}
 
-	public List<Soba> getSobe() {
-		return sobe;
+	public Long getId() {
+		return id;
 	}
 
-	public void setSobe(List<Soba> sobe) {
-		this.sobe = sobe;
-	}
-
-	public List<Opcija> getOpcije() {
-		return opcije;
-	}
-
-	public void setOpcije(List<Opcija> opcije) {
-		this.opcije = opcije;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNaziv() {
@@ -85,19 +74,20 @@ public class Hotel {
 		this.adresa = adresa;
 	}
 
-	public Long getId() {
-		return id;
+	public List<Garaza> getGaraze() {
+		return garaze;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setGaraze(List<Garaza> garaze) {
+		this.garaze = garaze;
 	}
 
-	public void prekopiraj(Hotel noviHotel) {
-		this.naziv = noviHotel.getNaziv();
-		this.opis = noviHotel.getOpis();
+	public void prekopiraj(KompanijaVozila novaKompanija) {
+		this.id = novaKompanija.getId();
+		this.naziv = novaKompanija.getNaziv();
+		this.opis = novaKompanija.getOpis();
 	}
-	
+
 	public List<AdminKompanije> getAdmini() {
 		return admini;
 	}
@@ -105,8 +95,5 @@ public class Hotel {
 	public void setAdmini(List<AdminKompanije> admini) {
 		this.admini = admini;
 	}
-	
-
-	
 	
 }
