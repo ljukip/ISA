@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 
 import com.booking.application.dto.hotel.HotelDTO;
 import com.booking.application.model.opsti.Adresa;
+import com.booking.application.model.korisnici.AdminKompanije;
 
 @Entity
 public class Hotel {
@@ -29,6 +30,9 @@ public class Hotel {
 	
 	@OneToMany(mappedBy = "hotel")
 	private List<Opcija> opcije;
+
+	@OneToMany(mappedBy = "hotel")
+	private List<AdminKompanije> admini;
 	
 	@OneToMany(mappedBy = "hotel")
 	private List<Soba> sobe;
@@ -93,6 +97,15 @@ public class Hotel {
 		this.naziv = noviHotel.getNaziv();
 		this.opis = noviHotel.getOpis();
 	}
+	
+	public List<AdminKompanije> getAdmini() {
+		return admini;
+	}
+
+	public void setAdmini(List<AdminKompanije> admini) {
+		this.admini = admini;
+	}
+	
 
 	
 	
