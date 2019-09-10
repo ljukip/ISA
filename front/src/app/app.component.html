@@ -22,7 +22,16 @@
 
 <nav class="navbar" style="margin-bottom: 0px; background-color: aliceblue;" *ngIf = "disableNavBar">
   <ul class="nav navbar-nav">
-    
+    <li>
+
+      <div class="dropdown" dropdown >
+        <button class="btn" style="background-color: aliceblue; color: black; border-color: aliceblue; margin: 10px; margin-bottom: 0px;" dropdown-open>Aviokompanije</button>
+          <ul class="dropdown-menu">
+            <li><a [routerLink]="['/aviokompanije']">Pregled</a></li>          
+            <li *ngIf="dodavanje()"><a [routerLink]="['/aviokompanije/add']">Dodavanje</a></li>
+          </ul>
+	  </div>
+    </li>
     <li>
 
          <div class="dropdown" dropdown>
@@ -34,9 +43,28 @@
         </div>
 
     </li>
-    
+    <li>
 
-     
+        <div class="dropdown" dropdown>
+         <button class="btn" style="background-color: aliceblue; color: black; border-color: aliceblue; margin: 10px; margin-bottom: 0px;" dropdown-open>Kompanije Vozila</button>
+         <ul class="dropdown-menu">
+             <li><a [routerLink]="['/kompanije-vozila']">Pregled</a></li>
+             <li *ngIf="dodavanje()"><a [routerLink]="['/kompanije-vozila/add']">Dodavanje</a></li>
+           </ul>
+         </div>
+
+     </li>
+
+     <li *ngIf="profilKorisnika()">
+
+        <div class="dropdown" dropdown>
+          <button class="btn" style="background-color: aliceblue; color: black; border-color: aliceblue; margin: 10px; margin-bottom: 0px;" dropdown-open>Korisnik</button>
+          <ul class="dropdown-menu">
+              <li><a (click)="goToProfile()">Pregled</a></li>
+          </ul>
+        </div>
+     </li>
+
 
      <li *ngIf="profilAdmina()">
         <div class="dropdown" dropdown>

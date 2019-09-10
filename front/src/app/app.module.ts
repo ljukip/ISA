@@ -46,7 +46,18 @@ const appRoutes: Routes = [
   { path: 'main', component: MainComponent },
   { path: '', redirectTo: 'main', pathMatch: 'full' },*/
 
+  // ----------------------------------------rent a car
+  { path: 'kompanije-vozila', component: PrikazKompanijaVozilaComponent },
+  { path: 'kompanije-vozila/add', component: AzuriranjeKompanijeVozilaComponent },
+  { path: 'kompanije-vozila/add/:id', component: AzuriranjeKompanijeVozilaComponent },
   
+  { path: 'kompanije-vozila/:kompanija-id/garaze', component: PrikazGarazaComponent },
+  { path: 'kompanije-vozila/:kompanija-id/garaze/add', component: AzuriranjeGarazeComponent },
+  { path: 'kompanije-vozila/:kompanija-id/garaze/add/:garaza-id', component: AzuriranjeGarazeComponent },
+
+  { path: 'kompanije-vozila/:kompanija-id/garaze/:garaza-id/vozila', component: PrikazVozilaComponent },
+  { path: 'kompanije-vozila/:kompanija-id/garaze/:garaza-id/vozila/add', component: AzuriranjeVozilaComponent },
+  { path: 'kompanije-vozila/:kompanija-id/garaze/:garaza-id/vozila/add/:id', component: AzuriranjeVozilaComponent },
 
 
   // --------------------------------------------- hotel
@@ -75,6 +86,12 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+	PrikazVozilaComponent,
+    PrikazKompanijaVozilaComponent,
+    AzuriranjeVozilaComponent,
+    AzuriranjeKompanijeVozilaComponent,
+    PrikazGarazaComponent,
+    AzuriranjeGarazeComponent,
     PrikazHotelaComponent,
     AzuriranjeHotelaComponent,
     AzuriranjeOpcijaComponent,
@@ -105,6 +122,9 @@ const appRoutes: Routes = [
   ],
   providers: [ //registrujem servise obaveznoo!!!!!!
     AuthService,
+	VoziloService,
+    KompanijaVozilaService,
+    GarazaService,
     HotelService,
     SobaService,
     OpcijaService,
