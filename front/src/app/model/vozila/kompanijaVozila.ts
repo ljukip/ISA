@@ -10,6 +10,7 @@ export class KompanijaVozila{
     public vozila: Vozilo[];
     public longitude: number;
     public latitude: number;
+    public prosecnaOcena: number;
 
     constructor(){
         this.id = 0;
@@ -19,6 +20,7 @@ export class KompanijaVozila{
         this.vozila = [];
         this.longitude = 0;
         this.latitude = 0;
+        this.prosecnaOcena = 0;
     }
 }
 

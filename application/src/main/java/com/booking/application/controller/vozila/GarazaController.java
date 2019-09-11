@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.booking.application.dto.vozila.GarazaDTO;
@@ -37,20 +36,18 @@ public class GarazaController {
 	
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GarazaDTO> kreiraj(@RequestBody GarazaDTO garaza, @PathVariable("kompanija-id") Long kompanijaId) {
-		return new ResponseEntity<GarazaDTO>(new GarazaDTO(this.garazaService.kreiraj(new Garaza(garaza), kompanijaId)), HttpStatus.CREATED);
+		return new ResponseEntity<GarazaDTO>(new GarazaDTO(this.garazaService.kreiraj(new Garaza(garaza), garaza.getAdresaDTO(), kompanijaId)), HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<GarazaDTO> azuriraj(@RequestBody GarazaDTO garaza, @PathVariable("kompanija-id") Long kompanijaId) {
+		return new ResponseEntity<GarazaDTO>(new GarazaDTO(this.garazaService.azuriraj(new Garaza(garaza), garaza.getAdresaDTO(), kompanijaId)), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/{garaza-id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> obrisi(@PathVariable("kompanija-id") Long kompanijaId, @PathVariable("garaza-id") Long garazaId) {
 		this.garazaService.obrisi(kompanijaId, garazaId);
 		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/{garaza-id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<GarazaDTO> postaviAdresu(@RequestParam("adresa-id") Long adresaId,
-			@PathVariable("id") Long garazaId,
-			@PathVariable("kompanija-id") Long kompanijaId) {
-		return new ResponseEntity<GarazaDTO>(new GarazaDTO(this.garazaService.postaviAdresu(kompanijaId, garazaId, adresaId)), HttpStatus.OK);
 	}
 	
 }

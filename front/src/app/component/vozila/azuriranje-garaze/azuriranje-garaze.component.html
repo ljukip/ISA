@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <div class="container" style="display: flex; justify-content: center;">
     <div class="col-md-5 form">
         <div class="form-area">  
@@ -33,11 +34,12 @@
                   </small>
                 </div>
                 <div class="form-group">
-                    <label>Broj</label>
-                  <input type="text" class="form-control" id="broj" name="broj" minlength="1"  #broj="ngModel" placeholder="broj" required [(ngModel)] = "filijala.adresaDTO.broj">
-                  <small [hidden]="broj.valid || (broj.pristine && !formFilijala.submitted)" class="text-danger">
-                    Broj je obavezan (Veci od 0).
-                  </small>  
+                    <label>Sirina</label>
+                  <input type="text" class="form-control" id="longitude" name="longitude" minlength="1"  #longitude="ngModel" placeholder="longitude" required [(ngModel)] = "filijala.adresaDTO.longitude"> 
+                </div>
+                <div class="form-group">
+                    <label>Duzina</label>
+                  <input type="text" class="form-control" id="latitude" name="latitude" minlength="1"  #latitude="ngModel" placeholder="latitude" required [(ngModel)] = "filijala.adresaDTO.latitude"> 
                 </div>
               <button *ngIf="isDataAvailable" type="button" [disabled]="!formFilijala.valid" id="submit" name="submit" class="btn btn-primary pull-right" (click) = "update()">Azuriraj</button>
               <button *ngIf="!isDataAvailable" type="button" [disabled]="!formFilijala.valid" id="submit" name="submit" class="btn btn-primary pull-right" (click) = "save()">Kreiraj</button>

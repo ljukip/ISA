@@ -99,13 +99,13 @@ export class AzuriranjeVozilaComponent implements OnInit {
       return "Morate popuniti marku vozila koja mora biti kraca od " + this.maksimalnaDuzina + " karaktera";
     }
 
-    if(this.vozilo.model === "" || this.vozilo.model.length > this.maksimalnaDuzina){
-      return "Morate popuniti model vozila koja mora biti kraca od " + this.maksimalnaDuzina + " karaktera";
-    }
+    // if(this.vozilo.model === "" || this.vozilo.model.length > this.maksimalnaDuzina){
+    //   return "Morate popuniti model vozila koja mora biti kraca od " + this.maksimalnaDuzina + " karaktera";
+    // }
 
-    if(this.vozilo.naziv === "" || this.vozilo.naziv.length > this.maksimalnaDuzina){
-      return "Morate popuniti naziv vozila koja mora biti kraca od " + this.maksimalnaDuzina + " karaktera";
-    }
+    // if(this.vozilo.naziv === "" || this.vozilo.naziv.length > this.maksimalnaDuzina){
+    //   return "Morate popuniti naziv vozila koja mora biti kraca od " + this.maksimalnaDuzina + " karaktera";
+    // }
 
     if(this.vozilo.tip === "" || this.vozilo.tip.length > this.maksimalnaDuzina){
       return "Morate popuniti tip vozila koja mora biti kraca od " + this.maksimalnaDuzina + " karaktera";

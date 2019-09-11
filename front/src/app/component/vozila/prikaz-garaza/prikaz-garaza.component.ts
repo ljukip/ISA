@@ -3,6 +3,7 @@ import { Garaza } from 'app/model/vozila/garaza';
 import { GarazaService } from 'app/service/vozila/garaza.service';
 import { AuthService } from 'app/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Korisnik } from 'app/model/korisnici/korisnik';
 
 @Component({
   selector: 'app-prikaz-garaza',
@@ -11,15 +12,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class PrikazGarazaComponent implements OnInit {
 
+  public korisnik: Korisnik;
   constructor(private filijalaService: GarazaService, private router: Router, private route: ActivatedRoute,  
     private authService: AuthService) {
-    let res = localStorage.getItem('token');
-    if(res != null){
-      //this.tipkorisnika = this.authService.getRoles(res);
-    }
-    else{
-      this.tipkorisnika = "nema_korisnika";
-    }
+    this.korisnik = JSON.parse(localStorage.getItem('token'));
   }
 
   id: number; //kompanija-id
@@ -92,11 +88,10 @@ export class PrikazGarazaComponent implements OnInit {
       return false;
     }*/
 
-    // if(this.tipkorisnika === "ROLE_Administrator_rent_a_car_servisa"){
-    //   return true;
-    // }
-    // return false; 
-    return true;
+    if(this.korisnik != null && this.korisnik.tipKorisnika === "ADMIN_KOMPANIJE" && this.korisnik.tipAdmina === "ADMIN_KOMPANIJE_VOZILA"){
+      return true;
+     }
+     return false; 
   }
 
   azurirajVoziloVidljivo(vozilo: Garaza){
@@ -104,11 +99,10 @@ export class PrikazGarazaComponent implements OnInit {
       return false;
     }*/
 
-    // if(this.tipkorisnika === "ROLE_Administrator_rent_a_car_servisa"){
-    //   return true;
-    // }
-    // return false; 
-    return true;
+    if(this.korisnik != null && this.korisnik.tipKorisnika === "ADMIN_KOMPANIJE" && this.korisnik.tipAdmina === "ADMIN_KOMPANIJE_VOZILA"){
+      return true;
+     }
+     return false; 
   }
 
 

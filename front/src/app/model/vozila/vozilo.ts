@@ -11,6 +11,7 @@ export class Vozilo{
     public cenaPoDanu: number;
     public tip: string;
     public garazaDTO: Garaza;
+    public prosecnaOcena: number;
 
     constructor(){
         this.id = 0;
@@ -22,6 +23,7 @@ export class Vozilo{
         this.naziv = "";
         this.tip = "";
         this.garazaDTO = new Garaza();
+        this.prosecnaOcena = 0;
     }
 }
 

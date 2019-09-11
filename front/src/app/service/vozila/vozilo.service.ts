@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Vozilo } from 'app/model/vozila/vozilo';
 import { Observable } from 'rxjs/Observable';
+import { PretragaVozila } from 'app/model/opsti/pretragaVozila';
 
 @Injectable()
 export class VoziloService {
@@ -44,6 +45,10 @@ export class VoziloService {
 
   addVozilo(kompanijaid: number,  garazaid: number, vozilo: Vozilo): Observable<Vozilo> {
     return this.http.post<Vozilo>(`/kompanije-vozila/${kompanijaid}/garaze/${garazaid}/vozila`, vozilo);
+  }
+
+  pretraga(kompanijaid: number,  garazaid: number, pretraga: PretragaVozila): Observable<Vozilo[]> {
+    return this.http.post<Vozilo[]>(`/kompanije-vozila/${kompanijaid}/garaze/${garazaid}/vozila/pretraga`, pretraga);
   }
 
  /* traziVozilo(rezervacijaVozila: RezervacijaVozila, idRent: number): Observable<Vozilo[]> {

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { KompanijaVozila } from 'app/model/vozila/kompanijaVozila';
 import { Adresa } from 'app/model/opsti/adresa';
+import { PretragaKompanijeVozila } from 'app/model/opsti/pretragaKompanijaVozila';
 
 @Injectable()
 export class KompanijaVozilaService {
@@ -55,20 +56,23 @@ export class KompanijaVozilaService {
 
   oceniServis(id: number, ocena: OcenaRenta): Observable<OcenaRenta> {
     return this.http.put<OcenaRenta>(`/api/ocene/${id}/postaviOcenuRent`, ocena);
-  }
+  }*/
 
   prihodServisa(odDatuma: string, doDatuma: string, idRenta: number): Observable<number>{  
     let params = new HttpParams();
-    params = params.append('odDatuma', odDatuma);
-    params = params.append('doDatuma', doDatuma);
-    params = params.append('idRenta', idRenta.toString());
-    return this.http.get<number>(`api/rezervacijeVozila/prihodiServisa`, {params: params});
+    params = params.append('pocetak', odDatuma);
+    params = params.append('kraj', doDatuma);
+    return this.http.get<number>(`/kompanije-vozila/${idRenta}/prihodi`, {params: params});
   }
 
   posecenostServisa(id: number, odDatuma: string, doDatuma:string): Observable<String[]>{
     let params = new HttpParams();
-    params = params.append('odDatuma', odDatuma);
-    params = params.append('doDatuma', doDatuma);
-    return this.http.get<String[]>(`/api/rezervacijeVozila/${id}/dnevnaPosecenost`, {params : params});
-  }*/
+    params = params.append('pocetak', odDatuma);
+    params = params.append('kraj', doDatuma);
+    return this.http.get<String[]>(`/kompanije-vozila/${id}/statistika`, {params : params});
+  }
+
+  trazi(pretraga: PretragaKompanijeVozila): Observable<KompanijaVozila[]> {
+    return this.http.post<KompanijaVozila[]>(`/kompanije-vozila/pretraga`, pretraga);
+  }
 }

@@ -3,6 +3,11 @@ import { KompanijaVozila } from 'app/model/vozila/kompanijaVozila';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AuthService } from 'app/auth.service';
 import { KompanijaVozilaService } from 'app/service/vozila/kompanija-vozila.service';
+import { Korisnik } from 'app/model/korisnici/korisnik';
+import { ZakupVozila } from 'app/model/vozila/zakupVozila';
+import { RezervacijeService } from 'app/service/rezervacije/rezervacije.service';
+import { Rezervacija } from 'app/model/opsti/rezervacija';
+import { PretragaKompanijeVozila } from 'app/model/opsti/pretragaKompanijaVozila';
 
 @Component({
   selector: 'app-prikaz-kompanija-vozila',
@@ -12,7 +17,7 @@ import { KompanijaVozilaService } from 'app/service/vozila/kompanija-vozila.serv
 export class PrikazKompanijaVozilaComponent implements OnInit {
 
   public rentacarovi: KompanijaVozila[] = [];
-  public tipkorisnika: string;
+  public korisnik: Korisnik;
   adreseRenta: string[] = [];
   pomAdreseRenta: string[] = [];
   naziviRenta: string[] = [];
@@ -25,16 +30,25 @@ export class PrikazKompanijaVozilaComponent implements OnInit {
   idRezervacije: number = 0;
   idFilijala: number = 0;
 
-  constructor(private route: ActivatedRoute, private rentacarService : KompanijaVozilaService, private router: Router, private authService: AuthService
+  
+  brzeVidljiveClick = false;
+  zakupi: ZakupVozila[] = [];
+  rezervacija: Rezervacija = new Rezervacija();
+  ajde: boolean = false;
+
+
+  constructor(private route: ActivatedRoute, private rentacarService : KompanijaVozilaService, private router: Router, 
+    private authService: AuthService, private rezervacijaService: RezervacijeService
    ) 
    {
-    let res = localStorage.getItem('token');
-    if(res != null){
-      //this.tipkorisnika = this.authService.getRoles(res);
+    this.korisnik = JSON.parse(localStorage.getItem('token'));
+    this.rezervacija = JSON.parse(localStorage.getItem('rezervacija'));
+
+    if(this.rezervacija != null){
+      this.ajde = true;
     }
-    else{
-      this.tipkorisnika = "nema_korisnika";
-    }
+
+
     this.getAll();
   }
 
@@ -148,30 +162,28 @@ export class PrikazKompanijaVozilaComponent implements OnInit {
   }
 
   ulogovaniKorisnikImaDozvoluDaMenja(){
-    /*if( this.tipkorisnika === "ROLE_Administrator_rent_a_car_servisa" || this.tipkorisnika === "ROLE_Administrator_sistema"){
+    if(this.korisnik != null && this.korisnik.tipKorisnika === "ADMIN_KOMPANIJE" && this.korisnik.tipAdmina === "ADMIN_KOMPANIJE_VOZILA"){
       return true;
-    }
-    return false; */
-    return true;
+     }
+     return false; 
   }
 
   ulogovaniKorisnikImaDozvoluDaBrise(){
-    // if(this.tipkorisnika === "ROLE_Administrator_sistema"){
-    //   return true;
-    // }
-    // return false; 
-    return true;
+    if(this.korisnik != null && this.korisnik.tipKorisnika === "ADMIN_KOMPANIJE" && this.korisnik.tipAdmina === "ADMIN_KOMPANIJE_VOZILA"){
+      return true;
+     }
+     return false; 
   }
 
   rezervisiDugme(){
-    if(this.tipkorisnika === "ROLE_Registrovani_korisnik"){
+    if(this.korisnik != null && this.korisnik.tipKorisnika === "KORISNIK"){
       return true;
     }
     return false; 
   }
 
   ocenaVidljivo(){
-    if(this.tipkorisnika === "ROLE_Registrovani_korisnik"){
+    if(this.korisnik != null && this.korisnik.tipKorisnika === "KORISNIK"){
       return true;
     }
     return false; 
@@ -183,7 +195,18 @@ export class PrikazKompanijaVozilaComponent implements OnInit {
     //     this.rentacarovi = s;
     //   },
     //   err=> console.log("err")
-    // );    
+    // );
+    
+    let pretraga: PretragaKompanijeVozila = new PretragaKompanijeVozila();
+    pretraga.naziv = this.izabraniNaziv;
+    pretraga.destinacija.zemlja = this.izabranaAdresa;
+
+    this.rentacarService.trazi(pretraga).subscribe(
+      s => {
+        this.rentacarovi = s;
+      }
+    )
+    
   }
 
   getAllSort(paramSort: string){
@@ -198,12 +221,26 @@ export class PrikazKompanijaVozilaComponent implements OnInit {
   }
 
   brzaRezervacija(){
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-          "idRezervacije" : this.idRezervacije
+    // let navigationExtras: NavigationExtras = {
+    //   queryParams: {
+    //       "idRezervacije" : this.idRezervacije
+    //   }
+    // };
+    // this.router.navigate(['rentacarovi/brzaRezervacijaVozila'], navigationExtras);
+    this.brzeVidljiveClick = true;
+    this.rezervacijaService.vratiBrzeRezervacijeVozila(0).subscribe(
+      s => {
+        this.zakupi = s;
       }
-    };
-    this.router.navigate(['rentacarovi/brzaRezervacijaVozila'], navigationExtras);
+    )
+  }
+
+  rezervisi(zakupSobe: ZakupVozila){
+    this.rezervacijaService.zakupVozila(this.rezervacija.id, zakupSobe).subscribe(
+      s => {
+        alert('uspesno rezervisano');
+      }
+    )
   }
 
   daLiSmeDaOceni(id: number): boolean{
@@ -229,13 +266,22 @@ export class PrikazKompanijaVozilaComponent implements OnInit {
   }
 
   pokaziMapu(longitude : number, latitude: number){
-    //this.router.navigate(['prikaziMapu/' + longitude + "/" + latitude]);
+    this.router.navigate(['prikaziMapu/' + longitude + "/" + latitude]);
   }
 
   vidjivoBrzeRezervacije(){
-    if(this.tipkorisnika === "ROLE_Registrovani_korisnik" && this.idRezervacije !== 0){
+    if(this.korisnik != null && this.korisnik.tipKorisnika === "KORISNIK" /*&& this.idRezervacije !== 0*/){
       return true;
     }
     return false; 
+  }
+
+  BrzoRezervisiVozilo(zakup: ZakupVozila){
+    //let rezervacija: Rezervacija = JSON.parse(localStorage.getItem('rezervacija'));
+    this.rezervacijaService.brzoRezervisiVozilo(this.rezervacija.id, zakup.id).subscribe(
+      s => {
+        localStorage.removeItem('rezervacija');
+      }
+    )
   }
 }

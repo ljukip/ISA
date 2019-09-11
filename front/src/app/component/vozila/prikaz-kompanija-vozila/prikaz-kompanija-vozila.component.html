@@ -1,21 +1,55 @@
+<app-menu></app-menu>
 <div class="row">
   <div *ngIf = "vidjivoBrzeRezervacije()" class="col-md-8 col-sm-offset-4 brzaRezervacija">
-      <img style="max-width: 100%; height: 200px;" class="img-fluid" (click) = "brzaRezervacija()" src="assets/hotel/SALE.jpg"/>
+      <img style="max-width: 100%; height: 200px; margin-bottom: 100px;" class="img-fluid" (click) = "brzaRezervacija()" src="assets/sale.jpg"/>
   </div>
+
+
+  <div *ngIf="brzeVidljiveClick" class="col-md-8 col-sm-offset-2">
+      <div class="list-group">
+        <a class="list-group-item" style="min-height: 220px; max-height: 350px;" *ngFor = "let i = index; let z of zakupi | paginate: { itemsPerPage: 10, currentPage: p }">
+              <div class="media col-md-3">
+                  <figure class="pull-left">
+                      <img class="media-object img-rounded img-responsive"  src="assets/vozilo.jpg" alt="placehold.it/350x250" >
+                  </figure>
+              </div>
+              <div class="col-md-6">
+                  <h3 class="list-group-item-heading"> {{z.garazaDTO.kompanijaDTO.naziv}} </h3>
+                  <h4 class="list-group-item-text">Tip vozila: {{z.voziloDTO.tip}}</h4>
+                  <h4 class="list-group-item-text">Marka: {{z.voziloDTO.marka}}</h4>
+                  <h4 class="list-group-item-text">Model: {{z.voziloDTO.model}}</h4>
+                  <h4 class="list-group-item-text">Cena: {{z.cenaZakupa}}$</h4>
+
+              </div>
+              <div class="col-md-3 text-center centered">
+                      <!--  -->
+                  <button  *ngIf="ajde" type="button" class="btn btn-default btn-lg btn-block" (click)="BrzoRezervisiVozilo(z)"> Rezervisi </button>
+              </div>
+              <!-- <div class="col-md-3 text-center centered-button" style="vertical-align: middle;">
+                  <button *ngIf="obrisiVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "deleteVoziloFromRent(vozilo)">Obrisi</button>
+                  <button *ngIf="azurirajVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "update(vozilo.id)">Izmeni</button>
+              </div> -->
+        </a>
+      </div>
+
+</div>
+
 <div class="col-md-8 col-sm-offset-2" style="margin-bottom: 15px;">
       <form class="md-form mr-auto mb-4">
               <table class="table table-striped">
           <tbody>
               <tr>
                   <td>
-                      <label>Adresa servisa</label>
+                      <!-- <label>Adresa servisa</label>
                   <ng-multiselect-dropdown [placeholder]="'Adresa'" [data]="adreseRenta" [(ngModel)]="izabranaAdresa" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
-                  </ng-multiselect-dropdown>
+                  </ng-multiselect-dropdown> -->
+                  <input type="text" class="form-control" #tip="ngModel" id="tip" name="tip" placeholder="adresa servisa" required [(ngModel)] = "izabranaAdresa">
               </td>
               <td>
-                  <label>Naziv servisa</label>
+                  <!-- <label>Naziv servisa</label>
                   <ng-multiselect-dropdown [placeholder]="'Naziv'" [data]="naziviRenta" [(ngModel)]="izabraniNaziv" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
-                  </ng-multiselect-dropdown>
+                  </ng-multiselect-dropdown> -->
+                  <input type="text" class="form-control" #naziv="ngModel" id="naziv" name="naziv" placeholder="naziv servisa" required [(ngModel)] = "izabraniNaziv">
               </td>
               <td>
                       <input class="form-control mr-sm-2" style="margin-top:24px;" type="button" value="Trazi" aria-label="Search" (click) = "trazi()">
@@ -36,9 +70,10 @@
                   <a (click)="getAllSort('naziv')">{{rentacar.naziv}} </a>
                   <a (click)="getAllSort('adresa')"> <small><i>{{rentacar.adresa.zemlja}}</i></small> <small><i>{{rentacar.adresa.grad}}</i></small> 
                     <small><i>{{rentacar.adresa.ulica}}</i></small> <small><i>{{rentacar.adresa.broj}}</i></small></a>
-                  <span class="glyphicon glyphicon-map-marker" (click) = "pokaziMapu(rentacar.longitude, rentacar.latitude)" ></span>
+                  <span class="glyphicon glyphicon-map-marker" (click) = "pokaziMapu(rentacar.adresa.longitude, rentacar.adresa.latitude)" ></span>
                   <p class="group inner list-group-item-text">
                     {{rentacar.opis}}</p>
+                    <label>Prosecna Ocena: {{rentacar.prosecnaOcena}}</label>
                 </div>
                 <div *ngIf="ulogovaniKorisnikImaDozvoluDaBrise()" class="col-md-2" style="margin-top: 5px; padding: 0px;">
                   <span class="glyphicon glyphicon-trash" (click) = "delete(rentacar.id)"></span>

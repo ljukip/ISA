@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <div class="row">
 
     <div class="col-md-8 col-sm-offset-2">
@@ -21,7 +22,7 @@
                       <button *ngIf="obrisiVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "delete(garaza.id)">Obrisi</button>
                       <button *ngIf="azurirajVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "update(garaza.id)">Izmeni</button>
                       <button type="button" class="btn btn-default btn-lg btn-block" (click) = "viewDetails(garaza.id)">Prikazi vozila</button>
-                      <button type="button" class="btn btn-default btn-lg btn-block" (click) = "addVozilo(garaza.id)">Kreiraj vozilo</button>
+                      <button *ngIf="azurirajVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "addVozilo(garaza.id)">Kreiraj vozilo</button>
                   </div>
             </a>
           </div>

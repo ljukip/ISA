@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.booking.application.dto.vozila.ZakupVozilaDTO;
@@ -36,6 +37,11 @@ public class ZakupVozilaController {
 			@PathVariable("zakup-id") Long zakupId) {
 		this.zakupVozilaService.obrisiZakup(kompanijaId, garazaId, voziloId, zakupId, false);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{zakup-id}", method= RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ZakupVozilaDTO> oceniZakup(@RequestParam("ocena") int ocena, @PathVariable("zakup-id") Long zakupId) {
+		return new ResponseEntity<ZakupVozilaDTO>(new ZakupVozilaDTO(this.zakupVozilaService.oceniZakup(zakupId, ocena)), HttpStatus.OK);
 	}
 	
 }

@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <div class="container" style="display: flex; justify-content: center;">
     <div class="col-md-5 form">
         <div class="form-area">  
@@ -18,7 +19,7 @@
                   Model je obavezan (minimum 3 karaktera a maksimum 30 karaktera).
                 </small>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                   <label>Naziv vozila</label>
                   <input type="text" class="form-control" minlength="3"  maxlength="30" #naziv="ngModel" id="model" name="model" placeholder="Naziv vozila" required [(ngModel)] = "vozilo.naziv">
                   <small [hidden]="naziv.valid || (naziv.pristine && !formVozilo.submitted)" class="text-danger">
@@ -31,7 +32,15 @@
                 <small [hidden]="tip.valid || (tip.pristine && !formVozilo.submitted)" class="text-danger">
                   Tip je obavezan (minimum 3 karaktera a maksimum 30 karaktera).
                 </small>
-              </div>
+              </div> -->
+              <div class="form-group">
+                  <label>Tip</label>
+                  <select name="tipovi" [(ngModel)]= "vozilo.tip">
+                      <option value="SEDAN">SEDAN</option>
+                      <option value="MINIVAN">MINIVAN</option>
+                      <option value="DZIP">DZIP</option>
+                  </select>
+                </div>
               <div class="form-group">
                   <label>Cena vozila</label>
                   <input type="text" class="form-control"  #cena="ngModel" id="cena" name="cena" placeholder="Cena po danu vozila" required [(ngModel)] = "vozilo.cenaPoDanu">

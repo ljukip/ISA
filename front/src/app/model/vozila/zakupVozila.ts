@@ -15,6 +15,7 @@ export class ZakupVozila{
     public voziloDTO: Vozilo;
     public minimalnaCena: number;
     public maksimalnaCena: number;
+    public ocena: number;
 
     constructor(){
         this.id = 0;
@@ -26,9 +27,10 @@ export class ZakupVozila{
         this.cenaZakupa = 0;
         this.dodatniPopust = 0;
         this.popustNaTip = 0;
-        this.tip = "";
+        this.tip = "REDOVAN";
         this.voziloDTO = new Vozilo();
         this.maksimalnaCena = 0;
         this.minimalnaCena = 0;
+        this.ocena = 0;
     }
 }
