@@ -1,0 +1,7 @@
+Cena zakupa sobe ignorise potencijalne rupe izmedju cenovnika,
+odnosno ako je cenovnik definisan do 10.05., a naredni validan od 15.05. , za
+dane 11.05-14.05 se cena nece racunati ( bice 0 po danu ).
+Kada broj dana zakupa sobe predje 7, za svaki naredni dan dodaje se ukupan popust
+za 0.5% po danu, sa maksimumom od 20%. Opcije ni u kom slucaju
+ne uticu na ukupan popust.
+-----------------------------------------------------------------------------------

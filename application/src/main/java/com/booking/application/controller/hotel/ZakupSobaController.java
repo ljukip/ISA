@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.booking.application.dto.hotel.ZakupSobaDTO;
-import com.booking.application.model.hotel.ZakupSoba;
+import com.booking.application.dto.hotel.ZakupSobeDTO;
 import com.booking.application.service.hotel.ZakupSobaService;
 
 @RestController
@@ -22,9 +22,8 @@ public class ZakupSobaController {
 	private ZakupSobaService zakupSobaService;
 	
 	@RequestMapping(value = "/brze", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ZakupSobaDTO> napraviBrzuRezervaciju(@PathVariable("hotel-id") Long hotelId,
-			@RequestBody ZakupSobaDTO zakupDTO) {
-		return new ResponseEntity<ZakupSobaDTO>(new ZakupSobaDTO(this.zakupSobaService.napraviBrzuRezervaciju(hotelId, new ZakupSoba(zakupDTO), zakupDTO.getSobe(), zakupDTO.getOpcije())), HttpStatus.CREATED);
+	public ResponseEntity<ZakupSobeDTO> napraviBrzuRezervaciju(@RequestBody ZakupSobeDTO zakupDTO) {
+		return new ResponseEntity<ZakupSobeDTO>(new ZakupSobeDTO(this.zakupSobaService.napraviBrzuRezervaciju(zakupDTO)), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/{zakup-id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,6 +32,11 @@ public class ZakupSobaController {
 			@PathVariable("zakup-id") Long zakupId) {
 		this.zakupSobaService.obrisiZakup(hotelId, sobaId, zakupId, false);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{zakup-id}", method= RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ZakupSobeDTO> oceniZakup(@RequestParam("ocena") int ocena, @PathVariable("zakup-id") Long zakupId) {
+		return new ResponseEntity<ZakupSobeDTO>(new ZakupSobeDTO(this.zakupSobaService.oceniZakup(zakupId, ocena)), HttpStatus.OK);
 	}
 	
 }

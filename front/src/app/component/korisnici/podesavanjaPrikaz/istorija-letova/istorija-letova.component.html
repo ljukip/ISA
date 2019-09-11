@@ -1,0 +1,26 @@
+<app-menu></app-menu>
+<div class="list-group">
+  <a class="list-group-item history" style="min-height: 200px; max-height: 100px;" *ngFor = "let i = index; let rezervacijaLeta of listaIstorijeLetova | paginate: { itemsPerPage: 10, currentPage: p }">
+      <div class="media col-md-3">
+          <figure class="pull-left">
+              <img class="media-object img-rounded img-responsive" style="width: 128px; height: 128px;"  src="assets/let.png" alt="placehold.it/350x250" >
+          </figure>
+      </div>
+      <!-- <div class="col-md-6">
+          <div *ngIf="rezervacijaLeta.let.aviokompanijaLeta != null">
+          <h3 class="list-group-item-heading"> {{rezervacijaLeta.let.aviokompanijaLeta.naziv}} </h3>
+          </div>
+      </div> -->
+      <div class="col-md-8">
+          <h4 class="list-group-item-text">Vreme Poletanja: {{rezervacijaLeta.letDTO.vremePoletanja}}</h4>
+          <h4 class="list-group-item-text">Vreme Letanja: {{rezervacijaLeta.letDTO.vremeSletanja}}</h4>
+          <h4 class="list-group-item-text">Duzina: {{rezervacijaLeta.letDTO.duzina}}</h4>
+          <h4 class="list-group-item-text">Tip leta: {{rezervacijaLeta.tip}}</h4>
+          <h4 class="list-group-item-text">Cena: {{rezervacijaLeta.cena}}$</h4>
+      </div>
+      <div style="min-width: 150px;" class="col-md-3 text-center centered">
+              <rating (click)="oceniLet(rezervacijaLeta)" [(ngModel)]="rezervacijaLeta.ocena"></rating>
+              <!-- <button *ngIf = "rezervacijaLeta.ocena != 0" type="button" class="btn btn-default btn-lg btn-block" (click) = "enableizmeniOcenuLet(rezervacijaLeta)"> Izmeni Ocenu </button> -->
+      </div>
+  </a>
+</div>

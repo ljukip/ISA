@@ -2,19 +2,21 @@ package com.booking.application.model.opsti;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import com.booking.application.model.hotel.ZakupSoba;
-import com.booking.application.model.korisnici.PozivNaRezervaciju;
 
-import com.booking.application.model.korisnici.KorisnikNaRezervaciji;
 import com.booking.application.model.avionskakompanija.AvionskaKarta;
+import com.booking.application.model.hotel.ZakupSobe;
+import com.booking.application.model.korisnici.Korisnik;
+import com.booking.application.model.korisnici.PozivNaRezervaciju;
 import com.booking.application.model.vozila.ZakupVozila;
-
 
 @Entity
 public class Rezervacija {
@@ -23,22 +25,26 @@ public class Rezervacija {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    
-    @OneToMany(mappedBy = "rezervacija")
-    private List<KorisnikNaRezervaciji> spojKorisnika;
+    @Column(nullable = false)
+    private boolean kompletirana;
     
     @OneToOne
-    private ZakupSoba zakupSoba;
-
+    private ZakupSobe zakupSoba;
+    
     @OneToOne
     private ZakupVozila zakupVozila;
     
     @OneToOne
     private AvionskaKarta avionskaKarta;
-
+    
+    @ManyToOne
+    private Korisnik vlasnik;
+    
+    @ManyToMany(mappedBy = "gostujuceRezervacije")
+    private List<Korisnik> korisnici;
+    
     @OneToMany(mappedBy = "rezervacija")
     private List<PozivNaRezervaciju> pozivi;
-    
     
     public Rezervacija() { }
 
@@ -50,20 +56,11 @@ public class Rezervacija {
 		this.id = id;
 	}
 
-	
-	public List<KorisnikNaRezervaciji> getSpojKorisnika() {
-		return spojKorisnika;
-	}
-
-	public void setSpojKorisnika(List<KorisnikNaRezervaciji> spojKorisnika) {
-		this.spojKorisnika = spojKorisnika;
-	}
-
-	public ZakupSoba getZakupSoba() {
+	public ZakupSobe getZakupSoba() {
 		return zakupSoba;
 	}
 
-	public void setZakupSoba(ZakupSoba zakupSoba) {
+	public void setZakupSoba(ZakupSobe zakupSoba) {
 		this.zakupSoba = zakupSoba;
 	}
 
@@ -82,8 +79,6 @@ public class Rezervacija {
 	public void setAvionskaKarta(AvionskaKarta avionskaKarta) {
 		this.avionskaKarta = avionskaKarta;
 	}
-	
-
 
 	public List<PozivNaRezervaciju> getPozivi() {
 		return pozivi;
@@ -91,6 +86,30 @@ public class Rezervacija {
 
 	public void setPozivi(List<PozivNaRezervaciju> pozivi) {
 		this.pozivi = pozivi;
+	}
+
+	public boolean isKompletirana() {
+		return kompletirana;
+	}
+
+	public void setKompletirana(boolean kompletirana) {
+		this.kompletirana = kompletirana;
+	}
+
+	public List<Korisnik> getKorisnici() {
+		return korisnici;
+	}
+
+	public void setKorisnici(List<Korisnik> korisnici) {
+		this.korisnici = korisnici;
+	}
+
+	public Korisnik getVlasnik() {
+		return vlasnik;
+	}
+
+	public void setVlasnik(Korisnik vlasnik) {
+		this.vlasnik = vlasnik;
 	}
 	
 }

@@ -12,6 +12,8 @@ public class AdresaDTO {
 	private String grad;
 	private String ulica;
 	private int broj;
+	private double latitude;
+	private double longitude;
 	
 	public AdresaDTO() { }
 	
@@ -22,6 +24,8 @@ public class AdresaDTO {
 		this.grad = adresa.getGrad();
 		this.ulica = adresa.getUlica();
 		this.broj = adresa.getBroj();
+		this.latitude = adresa.getGeografskaDuzina();
+		this.longitude = adresa.getGeografskaSirina();
 	}
 	
 	public long getId() {
@@ -70,6 +74,22 @@ public class AdresaDTO {
 			rezultat.add(new AdresaDTO(adresa));
 		}
 		return rezultat;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 	
 }

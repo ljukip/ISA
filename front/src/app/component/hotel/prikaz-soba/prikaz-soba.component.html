@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <div class="row">
     <div class="col-md-8 col-sm-offset-2">
             <button *ngIf="dodajAdminaVidljivo()" style="width: auto; float: right;" class="form-control mr-sm-5" (click) = "dodajAdministratora()">Dodaj administratora hotela</button>
@@ -15,12 +16,12 @@
                     <h3 class="list-group-item-text">Tip: {{soba.tip}}</h3>
                     <h4 class="list-group-item-text">Sprat: {{soba.sprat}}</h4>
                     <h4 class="list-group-item-text">Broj kreveta: {{soba.brojKreveta}}</h4>
-                    <h4 class="list-group-item-text">Cena: {{soba.cenaPoDanu}}$</h4>
+                    <h4 class="list-group-item-text">Cena: 50$</h4>
                     <h4 class="list-group-item-text">Ocena: {{soba.prosecnaOcena}} <small> / </small> 5 </h4>
                 </div>
-                <!-- <div class="col-md-3 text-center centered">
-                    <button *ngIf="rezervisiDugme()" type="button" class="btn btn-default btn-lg btn-block" (click)="rezervisiVozilo(vozilo.id)"> Rezervisi </button>
-                </div> -->
+                <div class="col-md-3 text-center centered" >
+                    <button *ngIf="rezervisiDugme()" type="button" class="btn btn-default btn-lg btn-block" (click)="rezervisi(soba)"> Rezervisi </button>
+                </div>
                 <div class="col-md-3 text-center centered-button" style="vertical-align: middle;">
                     <button *ngIf="obrisiVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "delete(soba)">Obrisi</button>
                     <button *ngIf="azurirajVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "update(soba.id)">Izmeni</button>
@@ -40,7 +41,7 @@
                             <label> Pocetni Datum </label>
                             <input class="form-control mr-sm-2" style="width: auto;" placeholder="Date:" 
                                     [min]="min"
-                                    [(ngModel)]="rezervacijaSobe.pocetniDatum"
+                                    [(ngModel)]="pretraga.pocetniDatum"
                                     [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"  [ngModelOptions]="{standalone: true}">
                             <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                           </td>
@@ -48,18 +49,23 @@
                             <label> krajnji Datum </label>
                             <input class="form-control mr-sm-2" style="width: auto;" placeholder="Date:"
                                     [min]="min" 
-                                    [(ngModel)]="rezervacijaSobe.krajnjiDatum"
+                                    [(ngModel)]="pretraga.krajnjiDatum"
                                     [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"  [ngModelOptions]="{standalone: true}">
                             <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
                           </td>
                         <td>
                             <label>Broj gostiju</label> 
-                            <input class="form-control mr-sm-2" style="width: auto;" type="text" placeholder="Broj gostiju" aria-label="Search" [(ngModel)] = "rezervacijaSobe.brojGostiju" [ngModelOptions]="{standalone: true}" >
+                            <input class="form-control mr-sm-2" style="width: auto;" type="text" placeholder="Broj gostiju" aria-label="Search" [(ngModel)] = "pretraga.brojGostiju" [ngModelOptions]="{standalone: true}" >
                         </td>
                         <td>
                             <label>Tip sobe</label>
-                            <ng-multiselect-dropdown [placeholder]="'Tip sobe'" [data]="tipoviSoba" [(ngModel)]="rezervacijaSobe.tipSobe" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
-                            </ng-multiselect-dropdown>
+                            <select name="tipovi" [(ngModel)]= "pretraga.tip">
+                                    <option value="JEDNOKREVETNA">JEDNOKREVETNA</option>
+                                    <option value="DVOKREVETNA">DVOKREVETNA</option>
+                                    <option value="TROKREVETNA">TROKREVETNA</option>
+                                </select>
+                            <!-- <ng-multiselect-dropdown [placeholder]="'Tip sobe'" [data]="tipoviSoba" [(ngModel)]="rezervacijaSobe.tipSobe" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                            </ng-multiselect-dropdown> -->
                         </td>
                         <td>
                             <input style="margin-top: 24px;" class="form-control mr-sm-2" type="button" value="Trazi" aria-label="Search" (click) = "trazi()">
@@ -69,6 +75,11 @@
             </table>
         </form>
         
+    </div>
+
+    <div *ngIf="!vidljivaSedista" class="col-md-3 text-center centered-button" style="vertical-align: middle;">
+        <button type="button" class="btn btn-default btn-lg btn-block" (click) = "idiNaStranicu('RENT')">VOZILA</button>
+        <button type="button" class="btn btn-default btn-lg btn-block" (click) = "zavrsi()">Zavrsi rezervaciju</button>
     </div>
 
     <div class="item col-lg-10 col-lg-10" style="width: 100%; text-align: center;">

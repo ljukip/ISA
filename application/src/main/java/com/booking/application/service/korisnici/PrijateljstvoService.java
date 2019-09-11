@@ -3,6 +3,9 @@ package com.booking.application.service.korisnici;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.booking.application.model.korisnici.Korisnik;
@@ -18,6 +21,7 @@ public class PrijateljstvoService {
 	@Autowired
 	private KorisnikService korisnikService;
 	
+	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Prijateljstvo kreiraj(Long korisnikId, Long prijateljId) {
 		Korisnik korisnik = this.korisnikService.vratiJednog(korisnikId);
 		Korisnik prijatelj = this.korisnikService.vratiJednog(prijateljId);
@@ -32,6 +36,7 @@ public class PrijateljstvoService {
 		}		
 	}
 	
+	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void obrisi(Long korisnikId, Long prijateljId) {
 		Korisnik korisnik = this.korisnikService.vratiJednog(korisnikId);
 		Korisnik prijatelj = this.korisnikService.vratiJednog(prijateljId);
@@ -39,6 +44,7 @@ public class PrijateljstvoService {
 		this.prijateljstvoRepository.delete(prijateljstvo);
 	}
 	
+	@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	private Prijateljstvo vratiPrijateljstvo(Korisnik korisnik, Korisnik prijatelj) {
 		for(Prijateljstvo prijateljstvo : korisnik.getPrijateljstva1()) {
 			if(prijateljstvo.getPrijatelj2().equals(prijatelj))

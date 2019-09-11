@@ -3,11 +3,10 @@ package com.booking.application.dto.korisnici;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.booking.application.model.korisnici.AdminKompanije;
 import com.booking.application.model.korisnici.AdminSistema;
 import com.booking.application.model.korisnici.Korisnik;
 import com.booking.application.model.korisnici.TipAdmina;
-import com.booking.application.model.korisnici.AdminKompanije;
-
 
 public class KorisnikDTO {
 
@@ -18,7 +17,9 @@ public class KorisnikDTO {
 	private String lozinka;
 	private String grad;
 	private String telefon;
-	private TipAdmina tip;
+	private TipAdmina tipAdmina;
+	private TipKorisnika tipKorisnika;
+	private boolean aktiviran;
 	
 	public KorisnikDTO() { }
 
@@ -30,9 +31,10 @@ public class KorisnikDTO {
 		this.lozinka = adminSistema.getLozinka();
 		this.grad = adminSistema.getGrad();
 		this.telefon = adminSistema.getTelefon();
+		this.tipKorisnika = TipKorisnika.ADMIN_SISTEMA;
+		this.aktiviran = true;
 	}
 
-	
 	public KorisnikDTO(AdminKompanije admin) {
 		this.id = admin.getId();
 		this.ime = admin.getIme();
@@ -41,8 +43,10 @@ public class KorisnikDTO {
 		this.lozinka = admin.getLozinka();
 		this.grad = admin.getGrad();
 		this.telefon = admin.getTelefon();
-		this.tip = admin.getTip();
-	}	
+		this.tipAdmina = admin.getTip();
+		this.tipKorisnika = TipKorisnika.ADMIN_KOMPANIJE;
+		this.aktiviran = admin.isAktiviran();
+	}
 	
 	public KorisnikDTO(Korisnik korisnik) {
 		this.id = korisnik.getId();
@@ -52,6 +56,8 @@ public class KorisnikDTO {
 		this.lozinka = korisnik.getLozinka();
 		this.grad = korisnik.getGrad();
 		this.telefon = korisnik.getTelefon();
+		this.tipKorisnika = TipKorisnika.KORISNIK;
+		this.aktiviran = korisnik.isAktiviran();
 	}
 
 	public Long getId() {
@@ -110,12 +116,12 @@ public class KorisnikDTO {
 		this.telefon = telefon;
 	}
 
-	public TipAdmina getTip() {
-		return tip;
+	public TipAdmina getTipAdmina() {
+		return tipAdmina;
 	}
 
-	public void setTip(TipAdmina tip) {
-		this.tip = tip;
+	public void setTipAdmina(TipAdmina tip) {
+		this.tipAdmina = tip;
 	}
 	
 	public static List<KorisnikDTO> transformisiAdmineSistema(List<AdminSistema> admini) {
@@ -140,6 +146,22 @@ public class KorisnikDTO {
 			rezultat.add(new KorisnikDTO(korisnik));
 		}
 		return rezultat;
+	}
+
+	public TipKorisnika getTipKorisnika() {
+		return tipKorisnika;
+	}
+
+	public void setTipKorisnika(TipKorisnika tipKorisnika) {
+		this.tipKorisnika = tipKorisnika;
+	}
+
+	public boolean isAktiviran() {
+		return aktiviran;
+	}
+
+	public void setAktiviran(boolean aktiviran) {
+		this.aktiviran = aktiviran;
 	}
 	
 }

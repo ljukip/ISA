@@ -9,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
@@ -34,14 +33,12 @@ public class Soba {
 	
 	@ManyToOne
 	private Hotel hotel;
-	
+
 	@OneToMany(mappedBy = "soba")
 	private List<CenovnikSobe> cenovnici;
 	
-	@ManyToMany(mappedBy = "sobe")
-	private List<ZakupSoba> zakupi;
-
-	
+	@OneToMany(mappedBy = "soba")
+	private List<ZakupSobe> zakupi;
 	
 	public Soba() { }
 	
@@ -52,6 +49,13 @@ public class Soba {
 		this.tip = sobaDTO.getTip();
 	}
 
+	public List<CenovnikSobe> getCenovnici() {
+		return cenovnici;
+	}
+
+	public void setCenovnici(List<CenovnikSobe> cenovnici) {
+		this.cenovnici = cenovnici;
+	}
 
 	public int getSprat() {
 		return sprat;
@@ -93,27 +97,18 @@ public class Soba {
 		this.id = id;
 	}
 
+	public List<ZakupSobe> getZakupi() {
+		return zakupi;
+	}
+
+	public void setZakupi(List<ZakupSobe> zakupi) {
+		this.zakupi = zakupi;
+	}
+
 	public void prekopiraj(Soba novaSoba) {
 		this.sprat = novaSoba.getSprat();
 		this.brojKreveta = novaSoba.getBrojKreveta();
 		this.tip = novaSoba.getTip();
-	}
-	
-	public List<CenovnikSobe> getCenovnici() {
-		return cenovnici;
-	}
-
-	public void setCenovnici(List<CenovnikSobe> cenovnici) {
-		this.cenovnici = cenovnici;
-	}
-
-
-	public List<ZakupSoba> getZakupi() {
-		return zakupi;
-	}
-
-	public void setZakupi(List<ZakupSoba> zakupi) {
-		this.zakupi = zakupi;
 	}
 	
 }

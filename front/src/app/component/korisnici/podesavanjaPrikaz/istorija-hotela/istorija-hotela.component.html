@@ -1,0 +1,24 @@
+<app-menu></app-menu>
+<div class="list-group">
+  <a class="list-group-item list-group-item-soba history" style="max-height: 100px;" *ngFor = "let i = index; let rezervisanaSoba of listaIstorijeSoba | paginate: { itemsPerPage: 10, currentPage: p }">
+      <div class="media col-md-3">
+          <figure class="pull-left">
+              <img class="media-object img-rounded img-responsive" style="width: 90%; height: 90%;"  src="assets/soba.jpg" alt="placehold.it/350x250" >
+          </figure>
+      </div>
+      <div class="col-md-6">
+          <div>
+              <h3 class="list-group-item-heading">Tip: {{rezervisanaSoba.tip}} </h3>
+              <h4 class="list-group-item-text">Pocetni Datum: {{rezervisanaSoba.pocetniDatum}}</h4>
+              <h4 class="list-group-item-text">Krajnji Datum: {{rezervisanaSoba.krajnjiDatum}}</h4>
+              <h4 class="list-group-item-text">Gosti: {{rezervisanaSoba.brojGostiju}}</h4>
+              <h4 class="list-group-item-text"> Cena: {{rezervisanaSoba.cenaZakupa}}$</h4>
+          </div>
+
+      </div>
+      <div style="min-width: 150px;" class="col-md-3 text-center centered">
+          <rating (click)="oceniSobu(rezervisanaSoba)" [(ngModel)]="rezervisanaSoba.ocena" ></rating>
+          <!-- <button *ngIf = "rezervisanaSoba.ocena != 0" type="button" style="white-space: inherit" class="btn btn-default btn-lg btn-block" (click) = "enableizmeniOcenuSoba(rezervisanaSoba)"> Izmeni Ocenu </button> -->
+      </div>
+  </a>
+</div>

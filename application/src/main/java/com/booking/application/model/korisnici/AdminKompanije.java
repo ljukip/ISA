@@ -36,11 +36,13 @@ public class AdminKompanije {
 	@Column(length = 32, nullable = false)
 	@Pattern(regexp = "^[A-Za-z ]*$")
 	private String grad;
-	@Column(length = 32, nullable = false, unique = true)
+	@Column(length = 32, nullable = true, unique = true)
 	@Pattern(regexp = "^[0-9]{9,10}$")
 	private String telefon;
 	@Enumerated(EnumType.STRING)
 	private TipAdmina tip;
+	@Column(nullable = false)
+	private boolean aktiviran;
 	
 	@ManyToOne
 	private AvionskaKompanija avionskaKompanija;
@@ -61,7 +63,7 @@ public class AdminKompanije {
 		this.lozinka = adminDTO.getLozinka();
 		this.grad = adminDTO.getGrad();
 		this.telefon = adminDTO.getTelefon();
-		this.tip = adminDTO.getTip();
+		this.tip = adminDTO.getTipAdmina();
 	}
 
 	public Long getId() {
@@ -159,6 +161,15 @@ public class AdminKompanije {
 		this.lozinka = adminKompanije.getLozinka();
 		this.grad = adminKompanije.getGrad();
 		this.telefon = adminKompanije.getTelefon();
+		this.aktiviran = true;
+	}
+
+	public boolean isAktiviran() {
+		return aktiviran;
+	}
+
+	public void setAktiviran(boolean aktiviran) {
+		this.aktiviran = aktiviran;
 	}
 
 }

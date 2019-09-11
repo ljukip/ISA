@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.booking.application.dto.opsti.DestinacijaDTO;
@@ -29,9 +28,6 @@ public class Destinacija {
     
     @OneToMany(mappedBy = "odrediste")
     private List<Let> letoviU;
-    
-    @ManyToMany(mappedBy = "presedanja")
-    private List<Let> letoviKojiPresedaju;
     
     public Destinacija() { }
     
@@ -79,14 +75,6 @@ public class Destinacija {
 
 	public void setLetoviU(List<Let> letoviU) {
 		this.letoviU = letoviU;
-	}
-
-	public List<Let> getLetoviKojiPresedaju() {
-		return letoviKojiPresedaju;
-	}
-
-	public void setLetoviKojiPresedaju(List<Let> letoviKojiPresedaju) {
-		this.letoviKojiPresedaju = letoviKojiPresedaju;
 	}
     
 }

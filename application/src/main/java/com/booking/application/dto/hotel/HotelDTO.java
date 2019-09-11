@@ -3,6 +3,7 @@ package com.booking.application.dto.hotel;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.booking.application.dto.opsti.AdresaDTO;
 import com.booking.application.model.hotel.Hotel;
 
 public class HotelDTO {
@@ -10,6 +11,8 @@ public class HotelDTO {
     private long id;
 	private String naziv;
 	private String opis;
+	private double prosecnaOcena;
+	private AdresaDTO adresaDTO;
 	
 	public HotelDTO() { }
 	
@@ -17,6 +20,8 @@ public class HotelDTO {
 		this.id = hotel.getId();
 		this.naziv = hotel.getNaziv();
 		this.opis = hotel.getOpis();
+		this.adresaDTO = new AdresaDTO(hotel.getAdresa());
+		this.prosecnaOcena = hotel.getOcena();
 	}
 
 	public long getId() {
@@ -43,7 +48,13 @@ public class HotelDTO {
 		this.opis = opis;
 	}
 
-	
+	public AdresaDTO getAdresaDTO() {
+		return adresaDTO;
+	}
+
+	public void setAdresaDTO(AdresaDTO adresaDTO) {
+		this.adresaDTO = adresaDTO;
+	}
 	
 	public static List<HotelDTO> transformisi(List<Hotel> hoteli) {
 		List<HotelDTO> rezultat = new ArrayList<HotelDTO>();
@@ -51,6 +62,14 @@ public class HotelDTO {
 			rezultat.add(new HotelDTO(hotel));
 		}
 		return rezultat;
+	}
+
+	public double getProsecnaOcena() {
+		return prosecnaOcena;
+	}
+
+	public void setProsecnaOcena(double ocena) {
+		this.prosecnaOcena = ocena;
 	}
 	
 }

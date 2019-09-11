@@ -1,0 +1,113 @@
+a.list-group-item-let {
+    height:auto;
+    min-height:400px;
+    min-width: 500px;
+}
+
+div.centered {
+    position: absolute;
+    margin-left: 800px;
+    margin-top: 35px;
+}
+
+/*Soba*/
+a.list-group-item-soba {
+    height:auto;
+    min-height:200px;
+    min-width: 500px;
+}
+
+div.centered {
+    position: absolute;
+    margin-left: 800px;
+    margin-top: 35px;
+}
+
+.dodatneUsluge {
+    margin: 10px;
+    background: azure;
+    border-color: #337ab7;
+    border-radius: 10px;
+}
+
+/*Vozila*/
+
+a.list-group-item-vozila {
+    height:auto;
+    min-height:300px;
+}
+
+
+/*Rezervacije*/
+a.list-group-item-rezervacije {
+    height:auto;
+    min-height:220px;
+    min-width: 500px;
+}
+
+button.rezervacije {
+    padding: 5px;
+    font-size: 15px;
+}
+
+/*Pozivnice*/
+
+a.list-group-item-pozivnice {
+    height:auto;
+    min-height:220px;
+    min-width: 500px;
+}
+
+
+a.list-group-item{
+    color: black;
+    background-color: aliceblue;
+    border-color: #337ab7;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.list-group-item-text{
+    color: darkblue !important;
+}
+
+a.list-group-item-prijatelji {
+    height:auto;
+    min-height:220px;
+}
+a.list-group-item-prijatelji{
+    color: black;
+    background-color: aliceblue;
+    border-color: #337ab7;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.history{
+    border-color: #ddd;
+    border-radius: 0px;
+    margin: 10px;
+    min-height: 150px;
+}
+
+.stars {
+    margin:20px auto 1px;
+}
+
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+    height: 100%;
+}
+
+
+#azuriraj {
+    margin-left: 10px;
+}
+
+.form{
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    background: #f7f7f7;
+}

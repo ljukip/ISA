@@ -1,0 +1,29 @@
+<app-menu></app-menu>
+<div class="row">
+  <div class="col-md-8 col-sm-offset-2">
+      <div class="list-group">
+          <a *ngFor = "let i = index; let prijateljstvo of listaPrijatelja | paginate: { itemsPerPage: 10, currentPage: p }">
+              <a class="list-group-item list-group-item-prijatelji">
+                  <div class="media col-md-3">
+                      <figure class="pull-left">
+                          <img class="media-object img-rounded img-responsive"  style="width: 170px; height: 150px;" src="assets/user.jpg" alt="placehold.it/350x250" >
+                      </figure>
+                  </div>
+                  <div class="col-md-6">
+                      <h4 class="list-group-item-heading">
+                          <span  >{{prijateljstvo.ime}}</span>
+                          <span >{{prijateljstvo.prezime}}</span>
+                      </h4>
+                      <p class="list-group-item-text"> {{prijateljstvo.email}} </p>
+                  </div>
+                  <div class="col-md-3 text-center">
+                      <button type="button" style="white-space: inherit" class="btn btn-default btn-lg btn-block" (click) = "addFriend(prijateljstvo.id)"> Dodaj za prijatelja</button>
+                  </div>
+              </a>
+          </a>
+      </div>
+  <div class="item col-lg-10 col-lg-10" style="width: 100%; text-align: center;">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+  </div>
+</div>

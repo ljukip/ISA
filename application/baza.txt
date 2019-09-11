@@ -1,0 +1,2 @@
+Neophodno je instalirati MySQL Server 8.0.17 ( koristiti dev.mysql.com MySQL Installer ).
+Bazu napraviti na portu 3306 i dodati joj korisnika admin : admin.

@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <div class="row">
 
     <div class="col-md-8 col-sm-offset-2">
@@ -7,7 +8,7 @@
             <a class="list-group-item" style="min-height: 220px; max-height: 350px;" *ngFor = "let i = index; let opcija of opcije | paginate: { itemsPerPage: 5, currentPage: p }">
                   <div class="media col-md-3">
                       <figure class="pull-left">
-                          <img class="media-object img-rounded img-responsive"  src="assets/opcija.jpg" alt="placehold.it/350x250" >
+                          <img class="media-object img-rounded img-responsive"  style="height: 80%; width: 80%;" src="assets/opcija.jpg" alt="placehold.it/350x250" >
                       </figure>
                   </div>
                   <div class="col-md-6">

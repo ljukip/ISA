@@ -1,0 +1,48 @@
+<app-menu></app-menu>
+<div class="row">
+  <div class="col-md-8 col-sm-offset-2">
+      <form class="md-form mr-auto mb-4">
+          <table class="table table-striped">
+              <tbody>
+                  <tr>
+                      <td>
+                      <input type="text" maxlength="30" [(ngModel)]="ime"  class="form-control" placeholder="ime" [ngModelOptions]="{standalone: true}">       
+                  </td>
+                  <td>
+                      <input type="text" maxlength="30" [(ngModel)]="prezime" class="form-control" placeholder="prezime" [ngModelOptions]="{standalone: true}"> 
+                  </td>
+                  <td>
+                      <input class="form-control mr-sm-2" type="button" value="Trazi" aria-label="Search" (click) = "trazi()">
+                  </td>
+              </tr>
+              </tbody>
+          </table>
+      </form>
+  </div>
+  <div class="col-md-8 col-sm-offset-2">
+      <div class="list-group">
+          <a *ngFor = "let i = index; let prijateljstvo of listaPrijatelja | paginate: { itemsPerPage: 10, currentPage: p }">
+              <a class="list-group-item list-group-item-prijatelji">
+                  <div class="media col-md-3">
+                      <figure class="pull-left">
+                          <img class="media-object img-rounded img-responsive"  style="width: 170px; height: 150px;" src="assets/user.jpg" alt="placehold.it/350x250" >
+                      </figure>
+                  </div>
+                  <div class="col-md-6">
+                      <h4 class="list-group-item-heading">
+                          <span (click)="getAllSort('ime')" >{{prijateljstvo.ime}}</span>
+                          <span (click)="getAllSort('prezime')">{{prijateljstvo.prezime}}</span>
+                      </h4>
+                      <p class="list-group-item-text"> {{prijateljstvo.email}} </p>
+                  </div>
+                  <div class="col-md-3 text-center">
+                      <button type="button" style="white-space: inherit" class="btn btn-default btn-lg btn-block" (click) = "cancelFriendship(prijateljstvo.id)"> Otkazi prijateljstvo </button>
+                  </div>
+              </a>
+          </a>
+      </div>
+  <div class="item col-lg-10 col-lg-10" style="width: 100%; text-align: center;">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+  </div>
+</div>

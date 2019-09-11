@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Soba } from 'app/model/hotel/soba';
 import { Observable } from 'rxjs/Observable';
+import { PretragaSobe } from 'app/model/opsti/pretragaSobe';
 
 @Injectable()
 export class SobaService {
@@ -42,6 +43,10 @@ export class SobaService {
 
   add(hotel: number, vozilo: Soba): Observable<Soba> {
     return this.http.post<Soba>(`/hoteli/${hotel}/sobe`, vozilo);
+  }
+
+  pretraga(hotel: number, pretraga: PretragaSobe): Observable<Soba[]> {
+    return this.http.post<Soba[]>(`/hoteli/${hotel}/sobe/pretraga`, pretraga);
   }
 
  /* traziVozilo(rezervacijaVozila: RezervacijaVozila, idRent: number): Observable<Vozilo[]> {

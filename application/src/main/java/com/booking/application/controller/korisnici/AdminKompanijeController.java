@@ -43,4 +43,10 @@ public class AdminKompanijeController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/{id}/aktiviraj", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> aktiviraj(@PathVariable("id") Long id) {
+		this.adminKompanijeService.aktiviraj(id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
 }

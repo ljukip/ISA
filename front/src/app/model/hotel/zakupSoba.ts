@@ -10,11 +10,12 @@ export class ZakupSoba{
 	public dodatniPopust: number;
 	public popustNaTip: number;
 	public tip: string;
-    public sobe: Soba[];
+    public soba: Soba;// vidi
     public brojGostiju: number;
     public opcije: Opcija[];
     public minimalnaCena: number;
     public maksimalnaCena: number;
+    public ocena: number;
 
     constructor(){
         this.id = 0;
@@ -23,12 +24,13 @@ export class ZakupSoba{
         this.cenaZakupa = 0;
         this.dodatniPopust = 0;
         this.popustNaTip = 0;
-        this.tip = "";
+        this.tip = "REDOVAN";
         this.brojGostiju = 0;
-        this.sobe= [];
+        this.soba= new Soba();//[];
         this.opcije = [];
         this.minimalnaCena = 0;
         this.maksimalnaCena = 0;
+        this.ocena = 0;
     }
 }
 

@@ -28,8 +28,7 @@ public class Opcija {
 	private Hotel hotel;
 
 	@ManyToMany(mappedBy = "opcije")
-	private List<ZakupSoba> zakupi;
-	
+	private List<ZakupSobe> zakupi;
 	
 	public Opcija() { }
 	
@@ -71,18 +70,17 @@ public class Opcija {
 		this.id = id;
 	}
 
+	public List<ZakupSobe> getZakupi() {
+		return zakupi;
+	}
+
+	public void setZakupi(List<ZakupSobe> zakupi) {
+		this.zakupi = zakupi;
+	}
 
 	public void prekopiraj(Opcija novaOpcija) {
 		this.naziv = novaOpcija.getNaziv();
 		this.cena = novaOpcija.getCena();
-	}
-	
-	public List<ZakupSoba> getZakupi() {
-		return zakupi;
-	}
-
-	public void setZakupi(List<ZakupSoba> zakupi) {
-		this.zakupi = zakupi;
 	}
 	
 }

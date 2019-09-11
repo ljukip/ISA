@@ -3,6 +3,11 @@ import { Hotel } from 'app/model/hotel/hotel';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AuthService } from 'app/auth.service';
 import { HotelService } from 'app/service/hotel/hotel.service';
+import { Korisnik } from 'app/model/korisnici/korisnik';
+import { ZakupSoba } from 'app/model/hotel/zakupSoba';
+import { RezervacijeService } from 'app/service/rezervacije/rezervacije.service';
+import { Rezervacija } from 'app/model/opsti/rezervacija';
+import { PretragaKompanijeVozila } from 'app/model/opsti/pretragaKompanijaVozila';
 
 @Component({
   selector: 'app-prikaz-hotela',
@@ -12,7 +17,7 @@ import { HotelService } from 'app/service/hotel/hotel.service';
 export class PrikazHotelaComponent implements OnInit {
 
   public hoteli: Hotel[] = [];
-  public tipkorisnika: string;
+  public korisnik: Korisnik;
   adreseRenta: string[] = [];
   pomAdreseRenta: string[] = [];
   naziviRenta: string[] = [];
@@ -24,19 +29,28 @@ export class PrikazHotelaComponent implements OnInit {
   prihod: number;
   idRezervacije: number = 0;
   idFilijala: number = 0;
+  ajde: boolean = false;
 
-  constructor(private route: ActivatedRoute, private hotelService : HotelService, private router: Router, private authService: AuthService
+  brzeVidljiveClick = false;
+  zakupi: ZakupSoba[] = [];
+  rezervacija: Rezervacija = new Rezervacija();
+
+
+  constructor(private route: ActivatedRoute, private hotelService : HotelService, private router: Router, 
+    private authService: AuthService, private rezervacijaService: RezervacijeService
    ) 
    {
-    let res = localStorage.getItem('token');
-    if(res != null){
-      //this.tipkorisnika = this.authService.getRoles(res);
+    this.korisnik = JSON.parse(localStorage.getItem('token'));
+    this.rezervacija = JSON.parse(localStorage.getItem('rezervacija'));
+    
+    if(this.rezervacija != null){
+      this.ajde = true;
     }
-    else{
-      this.tipkorisnika = "nema_korisnika";
-    }
+
     this.getAll();
   }
+
+
 
   ngOnInit() {
 
@@ -97,6 +111,12 @@ export class PrikazHotelaComponent implements OnInit {
           this.hoteli = s;
         }
       );
+
+      this.rezervacijaService.vratiBrzeRezervacijeSobe(1).subscribe(
+        s => {
+
+        }
+      )
    // }
   }
 
@@ -156,30 +176,28 @@ export class PrikazHotelaComponent implements OnInit {
   }
 
   ulogovaniKorisnikImaDozvoluDaMenja(){
-    /*if( this.tipkorisnika === "ROLE_Administrator_rent_a_car_servisa" || this.tipkorisnika === "ROLE_Administrator_sistema"){
+    if(this.korisnik != null && this.korisnik.tipKorisnika === "ADMIN_KOMPANIJE" && this.korisnik.tipAdmina === "ADMIN_HOTELA"){
       return true;
-    }
-    return false; */
-    return true;
+   }
+   return false; 
   }
 
   ulogovaniKorisnikImaDozvoluDaBrise(){
-    // if(this.tipkorisnika === "ROLE_Administrator_sistema"){
-    //   return true;
-    // }
-    // return false; 
-    return true;
+   if(this.korisnik != null && this.korisnik.tipKorisnika === "ADMIN_KOMPANIJE" && this.korisnik.tipAdmina === "ADMIN_HOTELA"){
+       return true;
+    }
+    return false; 
   }
 
   rezervisiDugme(){
-    if(this.tipkorisnika === "ROLE_Registrovani_korisnik"){
+    if(this.korisnik != null && this.korisnik.tipKorisnika === "KORISNIK"){
       return true;
     }
     return false; 
   }
 
   ocenaVidljivo(){
-    if(this.tipkorisnika === "ROLE_Registrovani_korisnik"){
+    if(this.korisnik != null && this.korisnik.tipKorisnika === "KORISNIK"){
       return true;
     }
     return false; 
@@ -191,7 +209,17 @@ export class PrikazHotelaComponent implements OnInit {
     //     this.rentacarovi = s;
     //   },
     //   err=> console.log("err")
-    // );    
+    // ); 
+
+    let pretraga: PretragaKompanijeVozila = new PretragaKompanijeVozila();
+    pretraga.naziv = this.izabraniNaziv;
+    pretraga.destinacija.zemlja = this.izabranaAdresa;
+
+    this.hotelService.trazi(pretraga).subscribe(
+      s => {
+        this.hoteli = s;
+      }
+    )
   }
 
   getAllSort(paramSort: string){
@@ -206,12 +234,26 @@ export class PrikazHotelaComponent implements OnInit {
   }
 
   brzaRezervacija(){
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-          "idRezervacije" : this.idRezervacije
+    // let navigationExtras: NavigationExtras = {
+    //   queryParams: {
+    //       "idRezervacije" : this.idRezervacije
+    //   }
+    // };
+    // this.router.navigate(['rentacarovi/brzaRezervacijaVozila'], navigationExtras);
+    this.brzeVidljiveClick = true;
+    this.rezervacijaService.vratiBrzeRezervacijeSobe(0).subscribe(
+      s => {
+        this.zakupi = s;
       }
-    };
-    this.router.navigate(['rentacarovi/brzaRezervacijaVozila'], navigationExtras);
+    )
+  }
+
+  rezervisi(zakupSobe: ZakupSoba){
+    this.rezervacijaService.zakupSobe(this.rezervacija.id, zakupSobe).subscribe(
+      s => {
+        alert('uspesno rezervisano');
+      }
+    )
   }
 
   daLiSmeDaOceni(id: number): boolean{
@@ -237,13 +279,22 @@ export class PrikazHotelaComponent implements OnInit {
   }
 
   pokaziMapu(longitude : number, latitude: number){
-    //this.router.navigate(['prikaziMapu/' + longitude + "/" + latitude]);
+    this.router.navigate(['prikaziMapu/' + longitude + "/" + latitude]);
   }
 
   vidjivoBrzeRezervacije(){
-    if(this.tipkorisnika === "ROLE_Registrovani_korisnik" && this.idRezervacije !== 0){
+    if(this.korisnik != null && this.korisnik.tipKorisnika === "KORISNIK" /*&& this.idRezervacije !== 0*/){
       return true;
     }
     return false; 
+  }
+
+  BrzoRezervisiVozilo(zakup: ZakupSoba){
+    //let rezervacija: Rezervacija = JSON.parse(localStorage.getItem('rezervacija'));
+    this.rezervacijaService.brzoRezervisiSobu(this.rezervacija.id, zakup.id).subscribe(
+      s => {
+        localStorage.removeItem('rezervacija');
+      }
+    )
   }
 }

@@ -12,7 +12,7 @@ export class CenovnikService {
     return this.http.post<CenovnikSobe>(`/hoteli/${idKompanije}/sobe/${sobaId}/cenovnici`, novaFilijala);
   }
 
-  findOne(hotelId: number, id: number, sobaId: number): Observable<CenovnikSobe> {
+  findOne(hotelId: number, sobaId: number, id: number): Observable<CenovnikSobe> {
     return this.http.get<CenovnikSobe>(`/hoteli/${hotelId}/sobe/${sobaId}/cenovnici/${id}`);
   }
 

@@ -49,4 +49,10 @@ public class KorisnikController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/{id}/aktiviraj", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> aktiviraj(@PathVariable("id") Long id) {
+		this.korisnikService.aktiviraj(id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
 }

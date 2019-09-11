@@ -81,6 +81,7 @@ export class AzuriranjeCenovnikaComponent implements OnInit {
   update(){
     let message: string = this.proveriUnos();
     if(message === "OK"){
+      //this.cenovnik.id = 
       this.cenovnik.pocetniDatum = this.konvertujUDobroVreme(this.cenovnik.pocetniDatum.toString().substring(4,15));
       this.cenovnik.krajnjiDatum = this.konvertujUDobroVreme(this.cenovnik.krajnjiDatum.toString().substring(4,15));
       this.cenovnikService.update(this.kompanijaId, this.sobaId, this.cenovnik).subscribe(

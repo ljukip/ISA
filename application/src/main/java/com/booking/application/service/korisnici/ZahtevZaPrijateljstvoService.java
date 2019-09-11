@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.booking.application.model.korisnici.Korisnik;
@@ -25,16 +28,19 @@ public class ZahtevZaPrijateljstvoService {
 	@Autowired
 	private PrijateljstvoRepository prijateljstvoRepository;
 	
+	@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<ZahtevZaPrijateljstvo> vratiPoslateZahteve(Long korisnikId) {
 		Korisnik korisnik = this.korisnikService.vratiJednog(korisnikId);
 		return korisnik.getPoslatiZahtevi();
 	}
 	
+	@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<ZahtevZaPrijateljstvo> vratiPrimljeneZahteve(Long korisnikId) {
 		Korisnik korisnik = this.korisnikService.vratiJednog(korisnikId);
 		return korisnik.getPrimljeniZahtevi();
 	}
 	
+	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ZahtevZaPrijateljstvo kreiraj(Long poslaoId, Long primioId) {
 		Korisnik poslao = this.korisnikService.vratiJednog(poslaoId);
 		Korisnik primio = this.korisnikService.vratiJednog(primioId);
@@ -48,6 +54,7 @@ public class ZahtevZaPrijateljstvoService {
 		}
 	}
 	
+	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void obrisi(Long poslaoId, Long primioId) {
 		try {
 			ZahtevZaPrijateljstvo zahtev = this.vratiZahtev(poslaoId, primioId);
@@ -58,6 +65,7 @@ public class ZahtevZaPrijateljstvoService {
 		}
 	}
 	
+	@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	private boolean postojiZahtev(Long poslaoId, Long primioId) {
 		try {
 			this.vratiZahtev(poslaoId, primioId);
@@ -67,6 +75,7 @@ public class ZahtevZaPrijateljstvoService {
 		}
 	}
 	
+	@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	private ZahtevZaPrijateljstvo vratiZahtev(Long poslaoId, Long primioId) {
 		Korisnik poslao = this.korisnikService.vratiJednog(poslaoId);
 		Korisnik primio = this.korisnikService.vratiJednog(primioId);
@@ -78,6 +87,7 @@ public class ZahtevZaPrijateljstvoService {
 		throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 	}
 
+	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Prijateljstvo prihvati(Long korisnikId, Long prijateljId) {
 		Korisnik korisnik = this.korisnikService.vratiJednog(korisnikId);
 		Korisnik prijatelj = this.korisnikService.vratiJednog(prijateljId);

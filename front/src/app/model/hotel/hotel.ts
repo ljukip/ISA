@@ -6,11 +6,13 @@ export class Hotel{
     public naziv: string;
     public opis: string;
     public adresaDTO: Adresa;
+    public prosecnaOcena: number;
 
     constructor(){
         this.id = 0;
         this.naziv = "";
         this.opis = "";
         this.adresaDTO = new Adresa();
+        this.prosecnaOcena = 0;
     }
 }

@@ -11,8 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.booking.application.dto.hotel.HotelDTO;
-import com.booking.application.model.opsti.Adresa;
 import com.booking.application.model.korisnici.AdminKompanije;
+import com.booking.application.model.opsti.Adresa;
 
 @Entity
 public class Hotel {
@@ -20,19 +20,24 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
 	@Column(length = 32, nullable = false)
 	private String naziv;
+	
 	@Column(length = 512, nullable = true)
 	private String opis;
+	
+	@Column(nullable = false)
+	private double ocena;
 	
 	@OneToOne
 	private Adresa adresa;
 	
 	@OneToMany(mappedBy = "hotel")
-	private List<Opcija> opcije;
-
-	@OneToMany(mappedBy = "hotel")
 	private List<AdminKompanije> admini;
+	
+	@OneToMany(mappedBy = "hotel")
+	private List<Opcija> opcije;
 	
 	@OneToMany(mappedBy = "hotel")
 	private List<Soba> sobe;
@@ -43,6 +48,7 @@ public class Hotel {
 		this.id = hotelDTO.getId();
 		this.naziv = hotelDTO.getNaziv();
 		this.opis = hotelDTO.getOpis();
+		this.ocena = hotelDTO.getProsecnaOcena();
 	}
 
 	public List<Soba> getSobe() {
@@ -97,7 +103,7 @@ public class Hotel {
 		this.naziv = noviHotel.getNaziv();
 		this.opis = noviHotel.getOpis();
 	}
-	
+
 	public List<AdminKompanije> getAdmini() {
 		return admini;
 	}
@@ -105,8 +111,13 @@ public class Hotel {
 	public void setAdmini(List<AdminKompanije> admini) {
 		this.admini = admini;
 	}
-	
 
-	
+	public double getOcena() {
+		return ocena;
+	}
+
+	public void setOcena(double ocena) {
+		this.ocena = ocena;
+	}
 	
 }

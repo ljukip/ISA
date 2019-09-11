@@ -7,10 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Pattern;
 
 import com.booking.application.dto.korisnici.KorisnikDTO;
+import com.booking.application.dto.korisnici.RegistracijaDTO;
+import com.booking.application.model.opsti.Rezervacija;
 
 @Entity
 public class Korisnik {
@@ -36,9 +41,18 @@ public class Korisnik {
 	@Column(length = 32, nullable = false, unique = true)
 	@Pattern(regexp = "^[0-9]{9,10}$")
 	private String telefon;
+	@Column(nullable = false)
+	private boolean aktiviran;
 	
-	@OneToMany(mappedBy = "korisnik")
-	private List<KorisnikNaRezervaciji> spojRezervacije;
+	@OneToMany(mappedBy = "vlasnik")
+	private List<Rezervacija> rezervacije;
+	
+	@ManyToMany
+	@JoinTable(name = "spoj_korisnik_gostujuce_rezervacije", 
+	   joinColumns = @JoinColumn(name = "korisnik_id"), 
+	   inverseJoinColumns = @JoinColumn(name = "rezervacija_id"))
+	private List<Rezervacija> gostujuceRezervacije;
+	
 	@OneToMany(mappedBy = "poslao")
 	private List<ZahtevZaPrijateljstvo> poslatiZahtevi;
 	
@@ -57,8 +71,6 @@ public class Korisnik {
 	@OneToMany(mappedBy = "prijatelj2")
 	private List<Prijateljstvo> prijateljstva2;
 	
-	
-	
 	public Korisnik() { }
 	
 	public Korisnik(KorisnikDTO korisnikDTO) {
@@ -69,6 +81,16 @@ public class Korisnik {
 		this.lozinka = korisnikDTO.getLozinka();
 		this.grad = korisnikDTO.getGrad();
 		this.telefon = korisnikDTO.getTelefon();
+	}
+
+	public Korisnik(RegistracijaDTO registracijaDTO) {
+		this.id = registracijaDTO.getId();
+		this.ime = registracijaDTO.getIme();
+		this.prezime = registracijaDTO.getPrezime();
+		this.email = registracijaDTO.getEmail();
+		this.lozinka = registracijaDTO.getLozinka();
+		this.grad = registracijaDTO.getMesto();
+		this.telefon = registracijaDTO.getBrojTelefona();
 	}
 
 	public Long getId() {
@@ -127,22 +149,6 @@ public class Korisnik {
 		this.telefon = telefon;
 	}
 
-	public List<KorisnikNaRezervaciji> getSpojRezervacije() {
-		return spojRezervacije;
-	}
-
-	public void setSpojRezervacije(List<KorisnikNaRezervaciji> spojRezervacije) {
-		this.spojRezervacije = spojRezervacije;
-	}
-
-	public void prekopiraj(Korisnik korisnik) {
-		this.ime = korisnik.getIme();
-		this.prezime = korisnik.getPrezime();
-		this.lozinka = korisnik.getLozinka();
-		this.grad = korisnik.getGrad();
-		this.telefon = korisnik.getTelefon();
-	}
-	
 	public List<ZahtevZaPrijateljstvo> getPoslatiZahtevi() {
 		return poslatiZahtevi;
 	}
@@ -189,6 +195,38 @@ public class Korisnik {
 
 	public void setPrijateljstva2(List<Prijateljstvo> prijateljstva2) {
 		this.prijateljstva2 = prijateljstva2;
+	}
+
+	public void prekopiraj(Korisnik korisnik) {
+		this.ime = korisnik.getIme();
+		this.prezime = korisnik.getPrezime();
+		this.lozinka = korisnik.getLozinka();
+		this.grad = korisnik.getGrad();
+		this.telefon = korisnik.getTelefon();
+	}
+
+	public List<Rezervacija> getRezervacije() {
+		return rezervacije;
+	}
+
+	public void setRezervacije(List<Rezervacija> rezervacije) {
+		this.rezervacije = rezervacije;
+	}
+
+	public List<Rezervacija> getGostujuceRezervacije() {
+		return gostujuceRezervacije;
+	}
+
+	public void setGostujuceRezervacije(List<Rezervacija> gostujuceRezervacije) {
+		this.gostujuceRezervacije = gostujuceRezervacije;
+	}
+
+	public boolean isAktiviran() {
+		return aktiviran;
+	}
+
+	public void setAktiviran(boolean aktiviran) {
+		this.aktiviran = aktiviran;
 	}
 	
 }

@@ -1,0 +1,34 @@
+Mejl korisnika mora biti jedinstven. Svako polje mora odgovarati odredjenom sablonu
+(pogledati klasu AdminSistema/AdminKompanije/Korisnik - svuda su ista ogranicenja).
+Zahtev za prijateljstvo moze se kreirati ukoliko prethodno vec ne postoji zahtev, odnosno
+ne postoji prijateljstvo izmedju dva korisnika.
+Prijateljstvo se moze prihvatiti ukoliko prethodno vec ne postoji prijateljstvo izmedju
+dva korisnika.
+-------------------------------------------------------------------------------------
+Hotel se sme brisati ako nijedna njegova soba nikada nije rezervisana.
+Hotelu se sme menjati adresa ako nijedna njegova soba nikada nije rezervisana.
+Hotelu se sme menjati naziv i opis uvek.
+--
+Soba se sme brisati ako nikada nije rezervisana.
+Soba se sme menjati ako nikada nije rezervisana.
+--
+Cenovnik se sme azurirati ako njegova soba nikada nije rezervisana.
+Cenovnik se sme brisati ako njegova soba nikada nije rezervisana.
+Cenovnici za jednu sobu se ne smeju preklapati.
+--
+Opcija se sme azurirati ako nije deo nijedne rezervacije.
+Opcija se sme brisati ako nije deo nijedne rezervacije.
+--
+Zakupi soba se ne smeju preklapati.
+Zakup sobe se moze otkazati najkasnije dva dana pred pocetka samog zakupa (nezavisno od leta).
+Zakup sobe se automatski otkazuje otkazivanjem leta.
+--------------------------------------------------------------------------------------
+Kompanija vozila se sme brisati ako nijedno njeno vozilo nikada nije rezervisano.
+Kompaniji vozila se sme menjati adresa ako nijedno njeno vozilo nikada nije rezervisano.
+Kompaniji vozila se sme menjati naziv i opis uvek.
+--
+Garaza se sme brisati ako nijedno njeno vozilo nikada nije rezervisano.
+Garazi se sme menjati adresa ako nijedno njeno vozilo nikada nije rezervisano.
+--
+Vozilo se sme brisati ako nikada nije rezervisano.
+Vozilo se sme azurirati ako nikada nije rezervisano.

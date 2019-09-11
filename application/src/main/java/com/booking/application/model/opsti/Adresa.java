@@ -8,16 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Min;
 
-import com.booking.application.model.hotel.Hotel;
 import com.booking.application.dto.opsti.AdresaDTO;
 import com.booking.application.model.avionskakompanija.AvionskaKompanija;
+import com.booking.application.model.hotel.Hotel;
 import com.booking.application.model.vozila.Garaza;
 import com.booking.application.model.vozila.KompanijaVozila;
 
 @Entity
 public class Adresa {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 32, nullable = false)
@@ -29,6 +29,10 @@ public class Adresa {
     @Column(nullable = false)
     @Min(value = 0)
 	private int broj;
+    @Column(nullable = false)
+    private double geografskaDuzina;
+    @Column(nullable = false)
+    private double geografskaSirina;
 	
 	@OneToOne
 	private Hotel hotel;
@@ -42,15 +46,6 @@ public class Adresa {
 	@OneToOne
 	private Garaza garaza;
 	
-	
-	public Hotel getHotel() {
-		return hotel;
-	}
-
-	public void setHotel(Hotel hotel) {
-		this.hotel = hotel;
-	}
-	
 	public Adresa() { }
 	
 	public Adresa(AdresaDTO adresaDTO) {
@@ -58,8 +53,17 @@ public class Adresa {
 		this.grad = adresaDTO.getGrad();
 		this.ulica = adresaDTO.getUlica();
 		this.broj = adresaDTO.getBroj();
+		this.geografskaDuzina = adresaDTO.getLatitude();
+		this.geografskaSirina = adresaDTO.getLongitude();
 	}
 
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
 
 	public String getZemlja() {
 		return zemlja;
@@ -124,6 +128,30 @@ public class Adresa {
 	public void setAvionskaKompanija(AvionskaKompanija avionskaKompanija) {
 		this.avionskaKompanija = avionskaKompanija;
 	}
+
+	public double getGeografskaDuzina() {
+		return geografskaDuzina;
+	}
+
+	public void setGeografskaDuzina(double geografskaDuzina) {
+		this.geografskaDuzina = geografskaDuzina;
+	}
+
+	public double getGeografskaSirina() {
+		return geografskaSirina;
+	}
+
+	public void setGeografskaSirina(double geografskaSirina) {
+		this.geografskaSirina = geografskaSirina;
+	}
 	
+	public void prekopiraj(AdresaDTO adresaDTO) {
+		this.zemlja = adresaDTO.getZemlja();
+		this.grad = adresaDTO.getGrad();
+		this.ulica = adresaDTO.getUlica();
+		this.broj = adresaDTO.getBroj();
+		this.geografskaDuzina = adresaDTO.getLatitude();
+		this.geografskaSirina = adresaDTO.getLongitude();
+	}
 	
 }

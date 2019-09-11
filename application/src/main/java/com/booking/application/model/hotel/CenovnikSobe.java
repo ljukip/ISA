@@ -33,8 +33,8 @@ public class CenovnikSobe {
 	public CenovnikSobe() { }
 	
 	public CenovnikSobe(CenovnikSobeDTO cenovnikSobeDTO) {
+		this.id = cenovnikSobeDTO.getId();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		this.id = cenovnikSobeDTO.getId(); //LocalDate.parse(date);
 		this.pocetniDatum = LocalDate.parse(cenovnikSobeDTO.getPocetniDatum(), formatter);
 		this.krajnjiDatum = LocalDate.parse(cenovnikSobeDTO.getKrajnjiDatum(), formatter);
 		this.cena = cenovnikSobeDTO.getCena();

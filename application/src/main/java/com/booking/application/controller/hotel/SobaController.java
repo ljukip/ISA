@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.booking.application.dto.hotel.PretragaSobeDTO;
 import com.booking.application.dto.hotel.SobaDTO;
 import com.booking.application.model.hotel.Soba;
 import com.booking.application.service.hotel.SobaService;
@@ -48,6 +49,11 @@ public class SobaController {
 			@PathVariable("soba-id") Long sobaId) {
 		this.sobaService.obrisi(hotelId, sobaId);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/pretraga", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<SobaDTO>> pretrazi(@RequestBody PretragaSobeDTO pretragaDTO, @PathVariable("hotel-id") Long hotelId) {
+		return new ResponseEntity<List<SobaDTO>>(SobaDTO.transformisi(this.sobaService.pretrazi(pretragaDTO, hotelId)), HttpStatus.OK);
 	}
 	
 }
