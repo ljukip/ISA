@@ -1,4 +1,4 @@
-package com.booking.application.model.avionskakompanija;
+package com.booking.application.repository.avionskakompanija;
 
 import java.util.Date;
 import java.util.List;
@@ -18,6 +18,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import com.booking.application.dto.avionskakompanija.LetDTO;
+import com.booking.application.model.avionskakompanija.AvionskaKarta;
+import com.booking.application.model.avionskakompanija.Sediste;
 import com.booking.application.model.opsti.Destinacija;
 
 @Entity

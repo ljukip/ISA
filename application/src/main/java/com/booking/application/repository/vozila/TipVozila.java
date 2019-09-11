@@ -1,4 +1,4 @@
-package com.booking.application.model.vozila;
+package com.booking.application.repository.vozila;
 
 public enum TipVozila {
 	SEDAN,

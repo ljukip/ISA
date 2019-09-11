@@ -1,4 +1,4 @@
-package com.booking.application.model.avionskakompanija;
+package com.booking.application.repository.avionskakompanija;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.booking.application.dto.avionskakompanija.AvionskaKompanijaDTO;
+import com.booking.application.model.avionskakompanija.KategorijaPrtljaga;
+import com.booking.application.model.avionskakompanija.Let;
 import com.booking.application.model.korisnici.AdminKompanije;
 import com.booking.application.model.opsti.Adresa;
 

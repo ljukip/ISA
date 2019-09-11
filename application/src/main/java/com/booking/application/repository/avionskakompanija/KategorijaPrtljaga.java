@@ -1,4 +1,4 @@
-package com.booking.application.model.avionskakompanija;
+package com.booking.application.repository.avionskakompanija;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 
 import com.booking.application.dto.avionskakompanija.KategorijaPrtljagaDTO;
+import com.booking.application.model.avionskakompanija.Sediste;
 
 @Entity
 public class KategorijaPrtljaga {

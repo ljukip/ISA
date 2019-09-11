@@ -1,4 +1,4 @@
-package com.booking.application.model.vozila;
+package com.booking.application.repository.vozila;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.booking.application.model.avionskakompanija;
+package com.booking.application.repository.avionskakompanija;
 
 public enum TipLeta {
 	JEDNOSMERNI,

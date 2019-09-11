@@ -1,4 +1,4 @@
-package com.booking.application.model.vozila;
+package com.booking.application.repository.vozila;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 
 import com.booking.application.dto.vozila.GarazaDTO;
 import com.booking.application.model.opsti.Adresa;
+import com.booking.application.model.vozila.Vozilo;
 
 @Entity
 public class Garaza {
