@@ -1,0 +1,51 @@
+<app-menu></app-menu>
+<div class="container" style="display: flex; justify-content: center;">
+    <div class="col-md-5 form">
+        <div class="form-area">  
+            <form role="form" #formFilijala="ngForm">
+            <br style="clear:both">
+                        <h3 style="margin-bottom: 25px; text-align: center;">Azuriranje filijale</h3>
+                <div class="form-group">
+                <label>Ime filijale</label>
+                <input type="text"  [readonly] = true class="form-control" minlength="3" maxlength="30" #ime="ngModel" id="ime" name="ime" placeholder="Ime filijale" required [(ngModel)] = "filijala.kompanijaDTO.naziv">
+                <small [hidden]="ime.valid || (ime.pristine && !formFilijala.submitted)" class="text-danger">
+                    Ime je obavezno (minimum 3 karaktera a maksimum 30 karaktera).
+                </small>
+              </div>
+              <div class="form-group">
+                    <label>Zemlja</label>
+                  <input type="text" class="form-control" id="zemlja" name="zemlja" minlength="3" maxlength="30" #zemlja="ngModel" placeholder="zemlja" required [(ngModel)] = "filijala.adresaDTO.zemlja">
+                  <small [hidden]="zemlja.valid || (zemlja.pristine && !formFilijala.submitted)" class="text-danger">
+                    Zemlja je obavezna (minimum 3 karaktera a maksimum 30 karaktera).
+                  </small>
+                 </div>
+               <div class="form-group">
+                    <label>Grad</label>
+                  <input type="text" class="form-control" id="grad" name="grad" minlength="3" maxlength="30" #grad="ngModel" placeholder="grad" required [(ngModel)] = "filijala.adresaDTO.grad">
+                  <small [hidden]="grad.valid || (grad.pristine && !formFilijala.submitted)" class="text-danger">
+                    Grad je obavezan (minimum 3 karaktera a maksimum 30 karaktera).
+                  </small>
+                </div>
+                <div class="form-group">
+                    <label>Ulica</label>
+                  <input type="text" class="form-control" id="ulica" name="ulica" minlength="3" maxlength="30" #ulica="ngModel" placeholder="ulica" required [(ngModel)] = "filijala.adresaDTO.ulica">
+                  <small [hidden]="ulica.valid || (ulica.pristine && !formFilijala.submitted)" class="text-danger">
+                    Ulica je obavezna (minimum 3 karaktera a maksimum 30 karaktera).
+                  </small>
+                </div>
+                <div class="form-group">
+                    <label>Sirina</label>
+                  <input type="text" class="form-control" id="longitude" name="longitude" minlength="1"  #longitude="ngModel" placeholder="longitude" required [(ngModel)] = "filijala.adresaDTO.longitude"> 
+                </div>
+                <div class="form-group">
+                    <label>Duzina</label>
+                  <input type="text" class="form-control" id="latitude" name="latitude" minlength="1"  #latitude="ngModel" placeholder="latitude" required [(ngModel)] = "filijala.adresaDTO.latitude"> 
+                </div>
+              <button *ngIf="isDataAvailable" type="button" [disabled]="!formFilijala.valid" id="submit" name="submit" class="btn btn-primary pull-right" (click) = "update()">Azuriraj</button>
+              <button *ngIf="!isDataAvailable" type="button" [disabled]="!formFilijala.valid" id="submit" name="submit" class="btn btn-primary pull-right" (click) = "save()">Kreiraj</button>
+              
+              <button type="button" id="submit" name="submit" class="btn btn-primary pull-right" (click) = "goBack()">Odustani</button>
+            </form>
+        </div>
+    </div>
+    </div>

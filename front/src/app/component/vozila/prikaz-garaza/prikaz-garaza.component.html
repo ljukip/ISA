@@ -1,0 +1,33 @@
+<app-menu></app-menu>
+<div class="row">
+
+    <div class="col-md-8 col-sm-offset-2">
+      </div>
+    <div class="col-md-8 col-sm-offset-2">
+          <div class="list-group">
+            <a class="list-group-item" style="min-height: 220px; max-height: 350px;" *ngFor = "let i = index; let garaza of garaze | paginate: { itemsPerPage: 5, currentPage: p }">
+                  <div class="media col-md-3">
+                      <figure class="pull-left">
+                          <img class="media-object img-rounded img-responsive"  src="assets/garaza.jpg" alt="placehold.it/350x250" >
+                      </figure>
+                  </div>
+                  <div class="col-md-6">
+                      <h4 class="list-group-item-text">Kompanija: {{garaza.kompanijaDTO.naziv}}</h4>
+                      <h4 class="list-group-item-text">Zemlja: {{garaza.adresaDTO.zemlja}}</h4>
+                      <h4 class="list-group-item-text">Grad: {{garaza.adresaDTO.grad}}</h4>
+                      <h4 class="list-group-item-text">Ulica: {{garaza.adresaDTO.ulica}}</h4>
+                      <h4 class="list-group-item-text">Broj: {{garaza.adresaDTO.broj}}</h4>
+                  </div>
+                  <div class="col-md-3 text-center centered-button" style="vertical-align: middle;">
+                      <button *ngIf="obrisiVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "delete(garaza.id)">Obrisi</button>
+                      <button *ngIf="azurirajVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "update(garaza.id)">Izmeni</button>
+                      <button type="button" class="btn btn-default btn-lg btn-block" (click) = "viewDetails(garaza.id)">Prikazi vozila</button>
+                      <button *ngIf="azurirajVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "addVozilo(garaza.id)">Kreiraj vozilo</button>
+                  </div>
+            </a>
+          </div>
+      <div class="item col-lg-10 col-lg-10" style="width: 100%; text-align: center;">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>

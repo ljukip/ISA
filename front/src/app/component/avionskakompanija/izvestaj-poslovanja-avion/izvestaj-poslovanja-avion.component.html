@@ -1,0 +1,45 @@
+<app-menu></app-menu>
+<div class="row">
+  <div class="col-md-8 col-sm-offset-2">
+    <form class="md-form mr-auto mb-4">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                  <td>
+                      <label> Pocetni datum </label>
+                      <input class="form-control mr-sm-2" placeholder="Date:" 
+                              [(ngModel)]="pocetniDatum"
+                              [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" [ngModelOptions]="{standalone: true}">
+                      <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                    </td>
+                    <td>
+                      <label> Krajnji datum </label>
+                      <input class="form-control mr-sm-2" placeholder="Date"
+                              [(ngModel)]="krajnjiDatum"
+                              [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [ngModelOptions]="{standalone: true}">
+                      <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                    </td>
+                  <td>
+                      <input style="margin-top: 24px;" class="form-control mr-sm-2" type="button" value="Prikazi prihod" aria-label="Search" (click) = "prikaziPrihod()">
+                  </td>
+                  <td>
+                    <input style="margin-top: 24px;" class="form-control mr-sm-2" type="button" value="Prikazi grafik" aria-label="Search" (click) = "izvestajPoslovanja()">
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </form>
+  </div>
+  <div class="col-md-8 col-sm-offset-2">
+    <div class="list-group">
+      <a class="list-group-item">
+        <div class="col-md-6">
+            <h4 class="list-group-item-heading"> Prihod {{prihod | number : '1.2-2'}} </h4>
+        </div>
+      </a>
+    </div>
+    <div [hidden]="!chart" style="width: 50%; height: 50%;" class="list-group">
+      <canvas id="canvas">{{ chart }}</canvas>
+    </div>
+  </div>
+</div>

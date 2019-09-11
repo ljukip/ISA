@@ -1,0 +1,106 @@
+<app-menu></app-menu>
+<div class="row">
+    <div class="col-md-8 col-sm-offset-2">
+            <button *ngIf="dodajAdminaVidljivo()" style="width: auto; float: right;" class="form-control mr-sm-5" (click) = "dodajAdministratora()">Dodaj administratora rent a car</button>
+        <button *ngIf="dodajVoziloVidljivo()" style="width: auto; float: right;" class="form-control mr-sm-5" (click) = "izvestajPoslovanja()">Izvestaj o poslovanju</button>
+    </div>
+  <div class="col-md-8 col-sm-offset-2">
+        <div class="list-group">
+          <a class="list-group-item" style="min-height: 220px; max-height: 350px;" *ngFor = "let i = index; let vozilo of vozila | paginate: { itemsPerPage: 10, currentPage: p }">
+                <div class="media col-md-3">
+                    <figure class="pull-left">
+                        <img class="media-object img-rounded img-responsive"  src="assets/vozilo.jpg" alt="placehold.it/350x250" >
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="list-group-item-heading"> {{vozilo.garazaDTO.kompanijaDTO.naziv}} </h3>
+                    <h4 class="list-group-item-text">Tip vozila: {{vozilo.tip}}</h4>
+                    <h4 class="list-group-item-text">Marka: {{vozilo.marka}}</h4>
+                    <h4 class="list-group-item-text">Model: {{vozilo.model}}</h4>
+                    <h4 class="list-group-item-text">Cena: {{vozilo.cenaPoDanu}}$</h4>
+                    <h4 class="list-group-item-text">Ocena: {{vozilo.prosecnaOcena}} <small> / </small> 5 </h4>
+                </div>
+                <div class="col-md-3 text-center centered">
+                        <!--  -->
+                    <button  *ngIf="rezervisiDugme()" type="button" class="btn btn-default btn-lg btn-block" (click)="rezervisiVozilo(vozilo)"> Rezervisi </button>
+                </div>
+                <div class="col-md-3 text-center centered-button" style="vertical-align: middle;">
+                    <button *ngIf="obrisiVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "deleteVoziloFromRent(vozilo)">Obrisi</button>
+                    <button *ngIf="azurirajVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "update(vozilo.id)">Izmeni</button>
+                </div>
+          </a>
+        </div>
+
+  </div>
+  <div class="col-md-10 col-sm-offset-1">
+        <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider>
+        <form class="md-form mr-auto mb-4">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td>
+                            <label> Datum preuzimanja </label>
+                            <input class="form-control mr-sm-2" placeholder="Date:" 
+                                    [(ngModel)]="pretraga.pocetniDatum"
+                                    [min]="min"
+                                    (change)="promenaDatuma()"
+                                    [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"  [ngModelOptions]="{standalone: true}">
+                            <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                          </td>
+                        <td>
+                            <label> Datum vracanja </label>
+                            <input class="form-control mr-sm-2" placeholder="Date:" 
+                                    [(ngModel)]="pretraga.krajnjiDatum"
+                                    [min]="min"
+                                    [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [ngModelOptions]="{standalone: true}">
+                            <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                        </td>
+                        <td>
+                            <label> Broj putnika </label>
+                            <input class="form-control mr-sm-2" type="text" placeholder="Broj putnika" aria-label="Search" [(ngModel)] = "pretraga.brojPutnika" [ngModelOptions]="{standalone: true}" >
+                        </td>
+  
+                        <!-- <td>
+                              <label>Mesto preuzimanja</label>
+                          <ng-multiselect-dropdown [placeholder]="'Mesto preuzimanja'" [data]="mestaFilijala" [(ngModel)]="rezervacijaVozila.mestoPreuzimanja" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                          </ng-multiselect-dropdown>
+                      </td>
+                      <td>
+                              <label>Mesto vracanja</label>
+                          <ng-multiselect-dropdown [placeholder]="'Mesto vracanja'" [data]="mestaFilijala" [(ngModel)]="rezervacijaVozila.mestoVracanja" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                          </ng-multiselect-dropdown>
+                      </td> -->
+                      <td>
+                          <!-- <label>Tip vozila</label>
+                          <ng-multiselect-dropdown [placeholder]="'Tip vozila'" [data]="tipoviVozila" [(ngModel)]="rezervacijaVozila.tipVozila" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                          </ng-multiselect-dropdown> -->
+
+                          <div class="form-group">
+                                <label>Tip</label>
+                                <select name="tipovi" [(ngModel)]= "pretraga.tip">
+                                    <option value="SEDAN">SEDAN</option>
+                                    <option value="MINIVAN">MINIVAN</option>
+                                    <option value="DZIP">DZIP</option>
+                                </select>
+                              </div>
+
+                      </td>
+  
+                        <td>
+                            <input class="form-control mr-sm-2" style="margin-top: 24px;" type="button" value="Trazi" aria-label="Search" (click) = "trazi()">
+                        </td>
+                  </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <div *ngIf="!vidljivaSedista" class="col-md-3 text-center centered-button" style="vertical-align: middle;">
+        <!-- <button type="button" class="btn btn-default btn-lg btn-block" (click) = "idiNaStranicu('RENT')">VOZILA</button> -->
+        <button type="button" class="btn btn-default btn-lg btn-block" (click) = "zavrsi()">Zavrsi rezervaciju</button>
+    </div>
+
+    <div class="item col-lg-10 col-lg-10" style="width: 100%; text-align: center;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+</div>

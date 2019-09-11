@@ -12,7 +12,10 @@ public class VoziloDTO {
 	private int brojPutnika;
 	private double cenaPoDanu;
 	private TipVozila tip;
-	private GarazaDTO garazaDTO; //dodato
+	private GarazaDTO garazaDTO;
+	private String model;
+	private String marka;
+	private int godinaProizvodnje;
 	
 	public VoziloDTO() { }
 	
@@ -22,6 +25,9 @@ public class VoziloDTO {
 		this.cenaPoDanu = vozilo.getCenaPoDanu();
 		this.tip = vozilo.getTip();
 		this.garazaDTO = vozilo.getGaraza() != null ? new GarazaDTO(vozilo.getGaraza()) : null;
+		this.model = vozilo.getModel();
+		this.marka = vozilo.getMarka();
+		this.godinaProizvodnje = vozilo.getGodinaProizvodnje();
 	}
 
 	public Long getId() {
@@ -70,6 +76,30 @@ public class VoziloDTO {
 
 	public void setGarazaDTO(GarazaDTO garazaDTO) {
 		this.garazaDTO = garazaDTO;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getMarka() {
+		return marka;
+	}
+
+	public void setMarka(String marka) {
+		this.marka = marka;
+	}
+
+	public int getGodinaProizvodnje() {
+		return godinaProizvodnje;
+	}
+
+	public void setGodinaProizvodnje(int godinaProizvodnje) {
+		this.godinaProizvodnje = godinaProizvodnje;
 	}
 	
 }

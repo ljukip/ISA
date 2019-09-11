@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.booking.application.dto.vozila.PretragaVozilaDTO;
 import com.booking.application.dto.vozila.VoziloDTO;
 import com.booking.application.model.vozila.Vozilo;
 import com.booking.application.service.vozila.VoziloService;
@@ -56,6 +57,11 @@ public class VoziloController {
 			@PathVariable("vozilo-id") Long voziloId) {
 		this.voziloService.obrisi(kompanijaId, garazaId, voziloId);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/pretraga", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<VoziloDTO>> pretrazi(@RequestBody PretragaVozilaDTO pretragaDTO, @PathVariable("garaza-id") Long kompanijaId) {
+		return new ResponseEntity<List<VoziloDTO>>(VoziloDTO.transformisi(this.voziloService.pretrazi(pretragaDTO, kompanijaId)), HttpStatus.OK);
 	}
 	
 }

@@ -1,0 +1,76 @@
+<app-menu></app-menu>
+<div class="container" style="display: flex; justify-content: center;">
+    <div class="col-md-5 form">
+        <div class="form-area">  
+            <form role="form"  #formVozilo="ngForm">
+            <br style="clear:both">
+                        <h3 style="margin-bottom: 25px; text-align: center;">Azuriranje/Dodavanje vozila</h3>
+                <div class="form-group">
+                <label>Marka vozila</label>
+                <input type="text" class="form-control" minlength="3"  maxlength="30" #marka="ngModel" id="marka" name="marka" placeholder="Marka vozila" required [(ngModel)] = "vozilo.marka">
+                <small [hidden]="marka.valid || (marka.pristine && !formVozilo.submitted)" class="text-danger">
+                  Marka je obavezna (minimum 3 karaktera a maksimum 30 karaktera).
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Model vozila</label>
+                <input type="text" class="form-control" minlength="3"  maxlength="30" #model="ngModel" id="model" name="model" placeholder="Model vozila" required [(ngModel)] = "vozilo.model">
+                <small [hidden]="model.valid || (model.pristine && !formVozilo.submitted)" class="text-danger">
+                  Model je obavezan (minimum 3 karaktera a maksimum 30 karaktera).
+                </small>
+              </div>
+              <!-- <div class="form-group">
+                  <label>Naziv vozila</label>
+                  <input type="text" class="form-control" minlength="3"  maxlength="30" #naziv="ngModel" id="model" name="model" placeholder="Naziv vozila" required [(ngModel)] = "vozilo.naziv">
+                  <small [hidden]="naziv.valid || (naziv.pristine && !formVozilo.submitted)" class="text-danger">
+                    Naziv je obavezan (minimum 3 karaktera a maksimum 30 karaktera).
+                  </small>
+              </div>
+              <div class="form-group">
+                <label>Tip vozila</label>
+                <input type="text" class="form-control"  minlength="3"  maxlength="30" #tip="ngModel" id="tip" name="tip" placeholder="Tip vozila" required [(ngModel)] = "vozilo.tip">
+                <small [hidden]="tip.valid || (tip.pristine && !formVozilo.submitted)" class="text-danger">
+                  Tip je obavezan (minimum 3 karaktera a maksimum 30 karaktera).
+                </small>
+              </div> -->
+              <div class="form-group">
+                  <label>Tip</label>
+                  <select name="tipovi" [(ngModel)]= "vozilo.tip">
+                      <option value="SEDAN">SEDAN</option>
+                      <option value="MINIVAN">MINIVAN</option>
+                      <option value="DZIP">DZIP</option>
+                  </select>
+                </div>
+              <div class="form-group">
+                  <label>Cena vozila</label>
+                  <input type="text" class="form-control"  #cena="ngModel" id="cena" name="cena" placeholder="Cena po danu vozila" required [(ngModel)] = "vozilo.cenaPoDanu">
+                  <small [hidden]="cena.valid || (cena.pristine && !formVozilo.submitted)" class="text-danger">
+                    Cena po danu je obavezna (pozitivan broj).
+                  </small>
+                </div>
+              <div class="form-group">
+                <label>Godina prozivodnje vozila</label>
+                <input type="text" class="form-control" #godina="ngModel" id="godinaProizvodnje" name="godinaProizvodnje" placeholder="Godina proizvodnje vozila" required [(ngModel)] = "vozilo.godinaProizvodnje">
+                <small [hidden]="godina.valid || (godina.pristine && !formVozilo.submitted)" class="text-danger">
+                  Godina je obavezna (pozitivan broj).
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Broj putnika vozila</label>
+                <input type="text" #brojSedista="ngModel" class="form-control" id="sediste" name="sediste" placeholder="Broj sedista vozila" required [(ngModel)] = "vozilo.brojPutnika">
+                <small [hidden]="brojSedista.valid || (brojSedista.pristine && !formVozilo.submitted)" class="text-danger">
+                  Broj putnika je obavezan (pozitivan broj).
+                </small>
+              </div>
+               
+              <div *ngIf="isDataAvailable">
+                <button type="button" [disabled]="!formVozilo.valid" id="submit" name="submit" class="btn btn-primary pull-right" style="margin:5px;" (click) = "update()">Azuriraj</button>
+              </div>
+              <div *ngIf="!isDataAvailable">
+                <button type="button" [disabled]="!formVozilo.valid" id="submit" name="submit" class="btn btn-primary pull-right" style="margin:5px;" (click) = "create()">Dodaj</button>
+              </div>
+              <button type="button" id="submit" name="submit" class="btn btn-primary pull-right" style="margin:5px;" (click) = "goBack()">Odustani</button>
+            </form>
+        </div>
+    </div>
+    </div>

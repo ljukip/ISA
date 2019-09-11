@@ -32,7 +32,7 @@ public class KategorijaPrtljaga {
 	private AvionskaKompanija avionskaKompanija;
 	
 	@OneToMany(mappedBy = "kategorijaPrtljaga")
-	private List<SedisteNaLetu> sedista;
+	private List<Sediste> sedista;
 	
 	public KategorijaPrtljaga() { }
 	
@@ -83,11 +83,11 @@ public class KategorijaPrtljaga {
 		this.avionskaKompanija = avionskaKompanija;
 	}
 
-	public List<SedisteNaLetu> getSedista() {
+	public List<Sediste> getSedista() {
 		return sedista;
 	}
 
-	public void setSedista(List<SedisteNaLetu> sedista) {
+	public void setSedista(List<Sediste> sedista) {
 		this.sedista = sedista;
 	}
 

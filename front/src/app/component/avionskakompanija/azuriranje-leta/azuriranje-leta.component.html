@@ -1,0 +1,78 @@
+<app-menu></app-menu>
+<div class="container" style="display: flex; justify-content: center;">
+  <div class="col-md-5 form">
+      <div class="form-area">  
+          <form role="form"  #formVozilo="ngForm">
+          <br style="clear:both">
+                      <h3 style="margin-bottom: 25px; text-align: center;">Azuriranje/Dodavanje Leta</h3>
+              <div class="form-group">
+                <label>Datum i vreme poletanja </label>
+                <input class="form-control mr-sm-2" placeholder="Pocetni datum:" 
+                [(ngModel)]="letic.vremePoletanja"
+                [min]="min"
+                (change)="promenaDatuma()"
+                [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"  [ngModelOptions]="{standalone: true}">
+        <owl-date-time #dt1></owl-date-time>
+              </div>
+              <div class="form-group">
+                  <label>Datum i vreme sletanja</label>
+                  <input class="form-control mr-sm-2" placeholder="Krajnji datum:" 
+                  [(ngModel)]="letic.vremeSletanja"
+                  [min]="min"
+                  (change)="promenaDatuma()"
+                  [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"  [ngModelOptions]="{standalone: true}">
+          <owl-date-time #dt2></owl-date-time>
+                </div>
+            <div class="form-group">
+                <label>Tip leta</label>
+                <!-- <input type="text" class="form-control" minlength="1" #naziv="ngModel" id="model" name="model" placeholder="vreme" required [(ngModel)] = "letic.vreme"> -->
+                <!-- <small [hidden]="naziv.valid || (naziv.pristine && !formVozilo.submitted)" class="text-danger">
+                  Vreme je obavezno (vece od nule).
+                </small> -->
+                <select name="tipovi" [(ngModel)]= "letic.tip">
+                  <option value="JEDNOSMERNI">JEDNOSMERNI</option>
+                  <option value="POVRATNI">POVRATNI</option>
+                </select>
+            </div>
+            <div class="form-group">
+              <label>Duzina putovanja(u kilometrima)</label>
+              <input type="text" class="form-control"  minlength="1" #tip="ngModel" id="tip" name="tip" placeholder="duzina" required [(ngModel)] = "letic.duzina">
+              <small [hidden]="tip.valid || (tip.pristine && !formVozilo.submitted)" class="text-danger">
+                Duzina je obavezan (veca od nule).
+              </small>
+            </div>
+            <div class="form-group">
+                <label>Cena Sedista</label>
+                <input type="text" class="form-control"  #cena="ngModel" id="cena" name="cena" placeholder="Cena po danu" required [(ngModel)] = "letic.cena">
+                <small [hidden]="cena.valid || (cena.pristine && !formVozilo.submitted)" class="text-danger">
+                  Cena po danu je obavezna (pozitivan broj).
+                </small>
+              </div>
+              <div  class="form-group">
+                <label>Polaziste</label>
+                <ng-multiselect-dropdown [placeholder]="'Polaziste'" [data]="polaziste" [(ngModel)]="izabranoPolaziste" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                </ng-multiselect-dropdown>
+              </div>
+              <div  class="form-group">
+                <label>Odrediste</label>
+                <ng-multiselect-dropdown [placeholder]="'Odrediste'" [data]="odrediste" [(ngModel)]="izabranoOdrediste" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                </ng-multiselect-dropdown>
+              </div>
+              <div  class="form-group">
+                <label>Presedanja</label>
+                <!-- <ng-multiselect-dropdown [placeholder]="'Presedanja'" [data]="presedanja" [(ngModel)]="presedanja" [settings]="dropdownSettings2" [ngModelOptions]="{standalone: true}">
+                </ng-multiselect-dropdown> -->
+                <input type="text" [placeholder]="'Presedanja'"  [(ngModel)]="letic.presedanja" [ngModelOptions]="{standalone: true}">
+              </div>
+             
+            <div *ngIf="isDataAvailable">
+              <button type="button" [disabled]="!formVozilo.valid" id="submit" name="submit" class="btn btn-primary pull-right" style="margin:5px;" (click) = "update()">Azuriraj</button>
+            </div>
+            <div *ngIf="!isDataAvailable">
+              <button type="button" [disabled]="!formVozilo.valid" id="submit" name="submit" class="btn btn-primary pull-right" style="margin:5px;" (click) = "create()">Dodaj</button>
+            </div>
+            <button type="button" id="submit" name="submit" class="btn btn-primary pull-right" style="margin:5px;" (click) = "goBack()">Odustani</button>
+          </form>
+      </div>
+  </div>
+  </div>

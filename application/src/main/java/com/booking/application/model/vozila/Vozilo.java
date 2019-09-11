@@ -22,16 +22,28 @@ public class Vozilo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @Column(nullable = false)
     @Min(value = 2)
     @Max(value = 7)
 	private int brojPutnika;
+    
     @Column(nullable = false)
     @Min(value = 1)
 	private double cenaPoDanu;
+    
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TipVozila tip;
+	
+	@Column(nullable = false)
+	private String model;
+	
+	@Column(nullable = false)
+	private String marka;
+	
+	@Column(nullable = false)
+	private int godinaProizvodnje;
 	
 	@ManyToOne
 	private Garaza garaza;
@@ -46,7 +58,9 @@ public class Vozilo {
 		this.brojPutnika = voziloDTO.getBrojPutnika();
 		this.cenaPoDanu = voziloDTO.getCenaPoDanu();
 		this.tip = voziloDTO.getTip();
-		this.garaza = voziloDTO.getGarazaDTO() != null ? new Garaza(voziloDTO.getGarazaDTO()) : null;
+		this.model = voziloDTO.getModel();
+		this.marka = voziloDTO.getMarka();
+		this.godinaProizvodnje = voziloDTO.getGodinaProizvodnje();
 	}
 
 	public Long getId() {
@@ -102,6 +116,30 @@ public class Vozilo {
 		this.brojPutnika = vozilo.getBrojPutnika();
 		this.cenaPoDanu = vozilo.getCenaPoDanu();
 		this.tip = vozilo.getTip();
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getMarka() {
+		return marka;
+	}
+
+	public void setMarka(String marka) {
+		this.marka = marka;
+	}
+
+	public int getGodinaProizvodnje() {
+		return godinaProizvodnje;
+	}
+
+	public void setGodinaProizvodnje(int godinaProizvodnje) {
+		this.godinaProizvodnje = godinaProizvodnje;
 	}
 	
 }

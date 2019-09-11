@@ -23,22 +23,31 @@ public class ZakupVozila {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(nullable = false)
 	private LocalDate pocetniDatum;
+	
 	@Column(nullable = false)
 	private LocalDate krajnjiDatum;
+	
 	@Column(nullable = false)
 	@Min(value = 0)
 	private double cenaZakupa;
+	
 	@Column(nullable = false)
 	@Min(value = 0)
 	private double dodatniPopust;
+	
 	@Column(nullable = false)
 	@Min(value = 0)
 	private double popustNaTip;
+	
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TipZakupa tip;
+	
+	@Column(nullable = true)
+	private double ocena;
 	
 	@ManyToOne
 	private Vozilo vozilo;
@@ -56,6 +65,7 @@ public class ZakupVozila {
 		this.dodatniPopust = zakupDTO.getDodatniPopust();
 		this.popustNaTip = zakupDTO.getPopustNaTip();
 		this.tip = zakupDTO.getTip();
+		this.ocena = zakupDTO.getOcena();
 	}
 
 	public Long getId() {
@@ -128,6 +138,14 @@ public class ZakupVozila {
 
 	public void setRezervacija(Rezervacija rezervacija) {
 		this.rezervacija = rezervacija;
+	}
+
+	public double getOcena() {
+		return ocena;
+	}
+
+	public void setOcena(double ocena) {
+		this.ocena = ocena;
 	}
 	
 }

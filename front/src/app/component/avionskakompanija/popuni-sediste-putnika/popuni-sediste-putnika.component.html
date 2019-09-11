@@ -1,0 +1,31 @@
+<app-menu></app-menu>
+<div class="row">
+<div class="col-md-8 col-sm-offset-2">
+      <div class="list-group">
+        <!-- <a class="list-group-item" style="min-height: 220px; max-height: 350px;">
+              <div class="media col-md-3">
+              </div> -->
+              <div *ngIf="vidljivaSedista">
+                <div class="col-md-6">
+                    <div class="form-group" *ngFor = "let i = index; let sediste of sedista">
+                        <h4 class="list-group-item-text">Sediste {{i+1}}</h4>
+                  <ng-multiselect-dropdown [placeholder]="'Email'" [data]="listaPrikazna" [(ngModel)]="sediste.email" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                  </ng-multiselect-dropdown>
+                      <input type="text" class="form-control" id="ime" minlength="3" maxlength="30" #ime="ngModel" name="ime" placeholder="ime" required [(ngModel)] = "sediste.imePutnika">
+                      <input type="text" class="form-control" id="prezime" minlength="3" maxlength="30" #prezime="ngModel" name="prezime" placeholder="prezime" required [(ngModel)] = "sediste.prezimePutnika">
+                      <input type="text" class="form-control" id="pasos" minlength="3" maxlength="30" #pasos="ngModel" name="pasos" placeholder="pasos" required [(ngModel)] = "sediste.brojPasosa">
+                  </div>
+                <div class="col-md-3 text-center centered-button" style="vertical-align: middle;">
+                    <button type="button" class="btn btn-default btn-lg btn-block" (click) = "popuniSedista()">Potvrdi</button>
+                </div>
+            </div>
+           
+          </div>
+
+          <div *ngIf="!vidljivaSedista" class="col-md-3 text-center centered-button" style="vertical-align: middle;">
+              <button type="button" class="btn btn-default btn-lg btn-block" (click) = "idiNaStranicu('RENT')">VOZILA</button>
+              <button type="button" class="btn btn-default btn-lg btn-block" (click) = "idiNaStranicu('HOTEL')">HOTEL</button>
+              <button type="button" class="btn btn-default btn-lg btn-block" (click) = "zavrsi()">Zavrsi rezervaciju</button>
+          </div>
+        <!-- </a> -->
+      </div>

@@ -11,6 +11,7 @@ public class KompanijaVozilaDTO {
     private Long id;
 	private String naziv;
 	private String opis;
+	private double prosecnaOcena;
 	private AdresaDTO adresa;
 	
 	public KompanijaVozilaDTO() { }
@@ -20,6 +21,7 @@ public class KompanijaVozilaDTO {
 		this.naziv = kompanija.getNaziv();
 		this.opis = kompanija.getOpis();
 		this.adresa = new AdresaDTO(kompanija.getAdresa());
+		this.prosecnaOcena = kompanija.getOcena();
 	}
 
 	public Long getId() {
@@ -60,6 +62,14 @@ public class KompanijaVozilaDTO {
 			rezultat.add(new KompanijaVozilaDTO(kompanija));
 		}
 		return rezultat;
+	}
+
+	public double getProsecnaOcena() {
+		return prosecnaOcena;
+	}
+
+	public void setProsecnaOcena(double ocena) {
+		this.prosecnaOcena = ocena;
 	}
 	
 }

@@ -20,16 +20,18 @@ public class AvionskaKompanija {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	@Column(length = 32, nullable = false)
+	
+    @Column(length = 32, nullable = false)
 	private String naziv;
+	
 	@Column(length = 512, nullable = true)
 	private String opis;
 	
+	@Column(nullable = false)
+	private double ocena;
+	
 	@OneToOne
 	private Adresa adresa;
-	
-	@OneToMany(mappedBy = "avionskaKompanija")
-	private List<Avion> avioni;
 	
 	@OneToMany(mappedBy = "avionskaKompanija")
 	private List<Let> letovi;
@@ -46,6 +48,7 @@ public class AvionskaKompanija {
 		this.id = avionskaKompanijaDTO.getId();
 		this.naziv = avionskaKompanijaDTO.getNaziv();
 		this.opis = avionskaKompanijaDTO.getOpis();
+		this.ocena = avionskaKompanijaDTO.getProsecnaOcena();
 	}
 
 	public Long getId() {
@@ -94,14 +97,6 @@ public class AvionskaKompanija {
 		this.opis = novaKompanija.getOpis();
 	}
 
-	public List<Avion> getAvioni() {
-		return avioni;
-	}
-
-	public void setAvioni(List<Avion> avioni) {
-		this.avioni = avioni;
-	}
-
 	public List<Let> getLetovi() {
 		return letovi;
 	}
@@ -116,6 +111,14 @@ public class AvionskaKompanija {
 
 	public void setKategorijePrtljaga(List<KategorijaPrtljaga> kategorijePrtljaga) {
 		this.kategorijePrtljaga = kategorijePrtljaga;
+	}
+
+	public double getOcena() {
+		return ocena;
+	}
+
+	public void setOcena(double ocena) {
+		this.ocena = ocena;
 	}
 	
 }

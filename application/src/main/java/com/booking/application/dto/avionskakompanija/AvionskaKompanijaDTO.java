@@ -11,6 +11,7 @@ public class AvionskaKompanijaDTO {
     private Long id;
 	private String naziv;
 	private String opis;
+	private double prosecnaOcena;
 	private AdresaDTO adresaDTO;
 	
 	public AvionskaKompanijaDTO() { }
@@ -20,6 +21,7 @@ public class AvionskaKompanijaDTO {
 		this.naziv = avionskaKompanija.getNaziv();
 		this.opis = avionskaKompanija.getOpis();
 		this.adresaDTO = new AdresaDTO(avionskaKompanija.getAdresa());
+		this.prosecnaOcena = avionskaKompanija.getOcena();
 	}
 
 	public Long getId() {
@@ -60,6 +62,14 @@ public class AvionskaKompanijaDTO {
 			rezultat.add(new AvionskaKompanijaDTO(avionskaKompanija));
 		}
 		return rezultat;
+	}
+
+	public double getProsecnaOcena() {
+		return prosecnaOcena;
+	}
+
+	public void setProsecnaOcena(double ocena) {
+		this.prosecnaOcena = ocena;
 	}
 	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.booking.application.model.opsti.TipZakupa;
 import com.booking.application.model.vozila.ZakupVozila;
+import com.booking.application.service.vozila.ZakupVozilaService;
 
 public class ZakupVozilaDTO {
 
@@ -17,6 +18,8 @@ public class ZakupVozilaDTO {
 	private double popustNaTip;
 	private TipZakupa tip;
 	private VoziloDTO voziloDTO;
+	private boolean dozvoljenoOtkazivanje;
+	private double ocena;
 	
 	public ZakupVozilaDTO() { }
 	
@@ -29,6 +32,8 @@ public class ZakupVozilaDTO {
 		this.popustNaTip = zakup.getPopustNaTip();
 		this.tip = zakup.getTip();
 		this.voziloDTO = new VoziloDTO(zakup.getVozilo());
+		this.dozvoljenoOtkazivanje = ZakupVozilaService.dozvoljenoOtkazivanje(zakup);
+		this.ocena = zakup.getOcena();
 	}
 
 	public Long getId() {
@@ -101,6 +106,22 @@ public class ZakupVozilaDTO {
 			rezultat.add(new ZakupVozilaDTO(zakup));
 		}
 		return rezultat;
+	}
+
+	public boolean isDozvoljenoOtkazivanje() {
+		return dozvoljenoOtkazivanje;
+	}
+
+	public void setDozvoljenoOtkazivanje(boolean dozvoljenoOtkazivanje) {
+		this.dozvoljenoOtkazivanje = dozvoljenoOtkazivanje;
+	}
+
+	public double getOcena() {
+		return ocena;
+	}
+
+	public void setOcena(double ocena) {
+		this.ocena = ocena;
 	}
 	
 }

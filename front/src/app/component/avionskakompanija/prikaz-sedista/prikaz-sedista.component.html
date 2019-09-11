@@ -1,0 +1,69 @@
+<app-menu></app-menu>
+<div class="plane">
+  <div class="cockpit">
+    <h2>Izaberite sediste/sedista</h2>
+
+          <ol class="seats" style="padding-left:110px;">
+            <li class="seat">
+              <input type="checkbox">
+              <label for="S">S</label>
+            </li>            
+            <li><label>Slobodno</label></li>        
+          </ol>
+
+          <ol class="seats" style="padding-left:110px;">
+            <li class="seat">
+              <input type="checkbox" disabled="" class="reservated">
+              <label for="R">R</label>
+            </li>
+            <li><label>Rezervisano</label></li>
+          </ol>
+
+          <ol class="seats" style="padding-left:110px;">
+            <li class="seat">
+              <input type="checkbox" disabled="" class="fast">
+              <label for="B">B</label>
+            </li> 
+            <li><label>Brza rezervacija</label></li>
+          </ol>      
+  </div>
+
+  <div class="exit exit--front fuselage">
+  </div>
+
+<ol class="cabin fuselage">
+
+    <!--  -->
+  <!-- <li class="row ">   
+    <ol *ngFor="let i = index; let broj of listaBrojeva" class="seats" type="A">
+      <li *ngFor="let j = index; let broj of listaBrojevaDo6" class="seat">
+        <input type="checkbox" id="{{i*6+j+1}}">
+        <label for="{{i*6+j+1}}">{{i*6+j+1}}</label>
+      </li>
+    </ol>
+  </li> -->
+  <li class="row " *ngFor="let i = index; let broj of matricaSedista">   
+      <ol  class="seats" type="A">
+        <li *ngFor="let j = index; let b of broj" class="seat" >
+          <input type="checkbox" id="{{i*6+j+1}}" (click)= "kliknutoSediste(b)">
+          <label for="{{i*6+j+1}}">{{i*6+j+1}}</label>
+        </li>
+      </ol>
+    </li>
+
+</ol>
+
+<div class="exit exit--back fuselage">
+</div>
+
+<br>
+<div>
+  <button class="btn btn-primary" *ngIf="vidljivo()" (click)="dodajSediste()"> Dodaj sediste</button>
+  <button class="btn btn-primary" *ngIf="vidljivo()" (click)="obrisiSediste()"> Obrisi sediste</button>
+  <a class="btn btn-primary" (click) = "dalje()">Dalje</a>
+  <br>
+
+  <label>Tekst</label>
+</div>
+
+</div>

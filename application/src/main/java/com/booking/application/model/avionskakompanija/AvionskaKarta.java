@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +16,7 @@ import javax.persistence.OneToOne;
 
 import com.booking.application.dto.avionskakompanija.AvionskaKartaDTO;
 import com.booking.application.model.opsti.Rezervacija;
+import com.booking.application.model.opsti.TipZakupa;
 
 @Entity
 public class AvionskaKarta {
@@ -20,20 +24,22 @@ public class AvionskaKarta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
 	@Column(nullable = false)
 	private double cena;
 	
+	@Column(nullable = true)
+	private double ocena;
+	
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private TipZakupa tip;
+	
 	@ManyToOne
-	private Let polazniLet;
+	private Let let;
 	
-	@OneToMany(mappedBy = "polaznaAvionskaKarta")
-	private List<SedisteNaLetu> sedistaNaPolaznomLetu;
-	
-	@ManyToOne
-	private Let povratniLet;
-	
-	@OneToMany(mappedBy = "povratnaAvionskaKarta")
-	private List<SedisteNaLetu> sedistaNaPovratnomLetu;
+	@OneToMany(mappedBy = "avionskaKarta", fetch = FetchType.EAGER)
+	private List<Sediste> sedista;
 	
 	@OneToOne
 	private Rezervacija rezervacija;
@@ -43,6 +49,7 @@ public class AvionskaKarta {
 	public AvionskaKarta(AvionskaKartaDTO avionskaKartaDTO) {
 		this.id = avionskaKartaDTO.getId();
 		this.cena = avionskaKartaDTO.getCena();
+		this.ocena = avionskaKartaDTO.getOcena();
 	}
 
 	public Long getId() {
@@ -69,36 +76,36 @@ public class AvionskaKarta {
 		this.rezervacija = rezervacija;
 	}
 
-	public Let getPolazniLet() {
-		return polazniLet;
+	public Let getLet() {
+		return let;
 	}
 
-	public void setPolazniLet(Let polazniLet) {
-		this.polazniLet = polazniLet;
+	public void setLet(Let let) {
+		this.let = let;
 	}
 
-	public List<SedisteNaLetu> getSedistaNaPolaznomLetu() {
-		return sedistaNaPolaznomLetu;
+	public List<Sediste> getSedista() {
+		return sedista;
 	}
 
-	public void setSedistaNaPolaznomLetu(List<SedisteNaLetu> sedistaNaPolaznomLetu) {
-		this.sedistaNaPolaznomLetu = sedistaNaPolaznomLetu;
+	public void setSedista(List<Sediste> sedista) {
+		this.sedista = sedista;
 	}
 
-	public Let getPovratniLet() {
-		return povratniLet;
+	public double getOcena() {
+		return ocena;
 	}
 
-	public void setPovratniLet(Let povratniLet) {
-		this.povratniLet = povratniLet;
+	public void setOcena(double ocena) {
+		this.ocena = ocena;
 	}
 
-	public List<SedisteNaLetu> getSedistaNaPovratnomLetu() {
-		return sedistaNaPovratnomLetu;
+	public TipZakupa getTip() {
+		return tip;
 	}
 
-	public void setSedistaNaPovratnomLetu(List<SedisteNaLetu> sedistaNaPovratnomLetu) {
-		this.sedistaNaPovratnomLetu = sedistaNaPovratnomLetu;
+	public void setTip(TipZakupa tip) {
+		this.tip = tip;
 	}
 	
 }

@@ -1,0 +1,76 @@
+<app-menu></app-menu>
+<div class="row">
+  <div class="col-md-8 col-sm-offset-2">
+          <button *ngIf="dodajAdminaVidljivo()" style="width: auto; float: right;" class="form-control mr-sm-5" (click) = "dodajAdministratora()">Dodaj administratora aviokompanija</button>
+      <button *ngIf="dodajVoziloVidljivo()" style="width: auto; float: right;" class="form-control mr-sm-5" (click) = "izvestajPoslovanja()">Izvestaj o poslovanju</button>
+  </div>
+<div class="col-md-8 col-sm-offset-2">
+      <div class="list-group">
+        <a class="list-group-item" style="min-height: 220px; max-height: 350px;" *ngFor = "let i = index; let letic of letovi | paginate: { itemsPerPage: 5, currentPage: p }">
+              <div class="media col-md-3">
+                  <figure class="pull-left">
+                      <img class="media-object img-rounded img-responsive" style="height: 150px; width: 170px;" src="assets/let.png" alt="placehold.it/350x250" (click)='prikaziSedista(letic.id)'>
+                  </figure>
+              </div>
+              <div class="col-md-6">
+                  <h4 class="list-group-item-text">Datum i vreme poletanja: {{letic.vremePoletanja}}</h4>
+                  <h4 class="list-group-item-text">Datum i vreme sletanja: {{letic.vremeSletanja}}</h4>
+                  <h4 class="list-group-item-text">Vreme putovanja: {{letic.vreme}}</h4>
+                  <h4 class="list-group-item-text">Duzina putovanja: {{letic.duzina}}</h4>
+                  <h4 class="list-group-item-text">Cena: {{letic.cena}}$</h4>
+                  <h4 class="list-group-item-text">Ocena: {{letic.prosecnaOcena}} <small> / </small> 5 </h4>
+              </div>
+              <!-- <div class="col-md-3 text-center centered">
+                  <button *ngIf="rezervisiDugme()" type="button" class="btn btn-default btn-lg btn-block" (click)="rezervisiVozilo(vozilo.id)"> Rezervisi </button>
+              </div> -->
+              <div class="col-md-3 text-center centered-button" style="vertical-align: middle;">
+                  <button *ngIf="obrisiVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "delete(letic)">Obrisi</button>
+                  <button *ngIf="azurirajVoziloVidljivo(vozilo)" type="button" class="btn btn-default btn-lg btn-block" (click) = "update(letic.id)">Izmeni</button>
+                  <button *ngIf="ocenaVidljivo()" type="button" class="btn btn-default btn-lg btn-block" (click) = "prikaziSedista(letic.id)">Prikaz sedista</button>
+              </div>
+        </a>
+      </div>
+
+</div>
+<div class="col-md-8 col-sm-offset-2">
+    <form class="md-form mr-auto mb-4">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td>
+                        <!-- <ng-multiselect-dropdown [placeholder]="'Mesto polaska'" [data]="obicniStringoviDestinacije" [(ngModel)]="avionskaKarta.mestoPolaska" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                        </ng-multiselect-dropdown> -->
+                        <input type="text" class="form-control" #tip="ngModel" id="tip" name="tip" placeholder="mesto polaska" required [(ngModel)] = "pretraga.gradPoletanja">
+                    </td>
+                    <td>
+                        <input class="form-control mr-sm-2" placeholder="Datum poletanja" [min]="todayDate"
+                                [(ngModel)]="pretraga.datumPoletanja"
+                                [min]="min"
+                                [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"  [ngModelOptions]="{standalone: true}">
+                        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                    </td>
+                    <td>
+                            <input type="text" class="form-control" #naziv="ngModel" id="naziv" name="naziv" placeholder="mesto dolaska" required [(ngModel)] = "pretraga.gradSletanja">
+                        <!-- <ng-multiselect-dropdown [placeholder]="'Mesto dolaska'" [data]="obicniStringoviDestinacije" [(ngModel)]="avionskaKarta.mestoDolaska" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                        </ng-multiselect-dropdown> -->
+                    </td>
+                    <td>
+                        <input class="form-control mr-sm-2" placeholder="Datum sletanja" [min]="todayDate"
+                                [(ngModel)]="pretraga.datumSletanja"
+                                [min]="min"
+                                [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"  [ngModelOptions]="{standalone: true}">
+                        <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                    </td>
+                    <td>
+                        <input class="form-control mr-sm-2" type="submit" value="Trazi" aria-label="Search" (click) = "trazi()">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+  <div class="item col-lg-10 col-lg-10" style="width: 100%; text-align: center;">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+</div>

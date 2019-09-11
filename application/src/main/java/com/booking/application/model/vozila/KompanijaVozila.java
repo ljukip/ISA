@@ -20,10 +20,15 @@ public class KompanijaVozila {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
 	@Column(length = 32, nullable = false)
 	private String naziv;
+	
 	@Column(length = 512, nullable = true)
 	private String opis;
+	
+	@Column(nullable = false)
+	private double ocena;
 	
 	@OneToOne
 	private Adresa adresa;
@@ -40,6 +45,7 @@ public class KompanijaVozila {
 		this.id = kompanijaDTO.getId();
 		this.naziv = kompanijaDTO.getNaziv();
 		this.opis = kompanijaDTO.getOpis();
+		this.ocena = kompanijaDTO.getProsecnaOcena();
 	}
 
 	public Long getId() {
@@ -94,6 +100,14 @@ public class KompanijaVozila {
 
 	public void setAdmini(List<AdminKompanije> admini) {
 		this.admini = admini;
+	}
+
+	public double getOcena() {
+		return ocena;
+	}
+
+	public void setOcena(double ocena) {
+		this.ocena = ocena;
 	}
 	
 }

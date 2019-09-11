@@ -1,0 +1,63 @@
+<app-menu></app-menu>
+<div class="row">
+  <!-- <div *ngIf = "vidjivoBrzeRezervacije()" class="col-md-8 col-sm-offset-4 brzaRezervacija">
+      <img style="max-width: 100%; height: 200px;margin-bottom: 100px;" class="img-fluid" (click) = "brzaRezervacija()" src="assets/sale.jpg"/>
+  </div> -->
+  <br><br><br>
+<div class="col-md-8 col-sm-offset-2" style="margin-bottom: 15px;">
+      <form class="md-form mr-auto mb-4">
+              <table class="table table-striped">
+          <tbody>
+              <tr>
+                  <td>
+                      <!-- <label>Adresa aviokompanije</label>
+                  <ng-multiselect-dropdown [placeholder]="'Adresa'" [data]="adreseRenta" [(ngModel)]="izabranaAdresa" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                  </ng-multiselect-dropdown> -->
+                  <input type="text" class="form-control" #tip="ngModel" id="tip" name="tip" placeholder="adresa servisa" required [(ngModel)] = "izabranaAdresa">
+              </td>
+              <td>
+                  <!-- <label>Naziv aviokompanije</label>
+                  <ng-multiselect-dropdown [placeholder]="'Naziv'" [data]="naziviRenta" [(ngModel)]="izabraniNaziv" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                  </ng-multiselect-dropdown> -->
+                  <input type="text" class="form-control" #naziv="ngModel" id="naziv" name="naziv" placeholder="naziv servisa" required [(ngModel)] = "izabraniNaziv">
+              </td>
+              <td>
+                <input class="form-control mr-sm-2" style="margin-top:24px;" type="button" value="Trazi" aria-label="Search" (click) = "trazi()">
+              </td>
+          </tr>
+  </table>
+    </form>
+</div>
+  <div class="col-md-8 col-sm-offset-2">
+        <div class="list-group">
+          <a class="list-group-item" style="min-height: 220px; max-height: 350px;" *ngFor = "let i = index; let aviokompanija of aviokompanije | paginate: { itemsPerPage: 5, currentPage: p }">
+                <div class="media col-md-3">
+                    <figure class="pull-left">
+                        <img class="media-object img-rounded img-responsive"  src="assets/aviokompanija.jpg" alt="placehold.it/350x250" (click)="viewDetails(aviokompanija.id)">
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                  <a (click)="getAllSort('naziv')">{{aviokompanija.naziv}} </a>
+                  <a (click)="getAllSort('adresa')"> <small><i>{{aviokompanija.adresaDTO.zemlja}}</i></small> <small><i>{{aviokompanija.adresaDTO.grad}}</i></small> 
+                    <small><i>{{aviokompanija.adresaDTO.ulica}}</i></small> <small><i>{{aviokompanija.adresaDTO.broj}}</i></small></a>
+                  <span class="glyphicon glyphicon-map-marker" (click) = "pokaziMapu(aviokompanija.adresaDTO.longitude, aviokompanija.adresaDTO.latitude)" ></span>
+                  <p class="group inner list-group-item-text">
+                    {{aviokompanija.opis}}</p>
+                    <label>Prosecna Ocena: {{aviokompanija.prosecnaOcena}}</label>
+                </div>
+                <div *ngIf="ulogovaniKorisnikImaDozvoluDaBrise()" class="col-md-2" style="margin-top: 5px; padding: 0px;">
+                  <span class="glyphicon glyphicon-trash" (click) = "delete(aviokompanija.id)"></span>
+              </div>
+              <div *ngIf="ulogovaniKorisnikImaDozvoluDaMenja()" class="col-md-2" style="margin-top: 5px; padding: 0px;">
+                  <span class="glyphicon glyphicon-wrench" (click) = "update(aviokompanija.id)"></span>
+              </div>
+              <button *ngIf="ulogovaniKorisnikImaDozvoluDaMenja()" (click) = "createLet(aviokompanija.id)" >Kreiraj Let
+                </button>
+          </a>
+        </div>
+        
+    <div class="item col-lg-10 col-lg-10" style="width: 100%; text-align: center;">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
