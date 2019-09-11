@@ -158,7 +158,11 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+<<<<<<< HEAD
     PrikazVozilaComponent,
+=======
+	PrikazVozilaComponent,
+>>>>>>> 140683db2bbb6ea77680a34d1f63e826f890d2bb
     PrikazKompanijaVozilaComponent,
     AzuriranjeVozilaComponent,
     AzuriranjeKompanijeVozilaComponent,
@@ -218,7 +222,11 @@ const appRoutes: Routes = [
   ],
   providers: [ //registrujem servise obaveznoo!!!!!!
     AuthService,
+<<<<<<< HEAD
     VoziloService,
+=======
+	VoziloService,
+>>>>>>> 140683db2bbb6ea77680a34d1f63e826f890d2bb
     KompanijaVozilaService,
     GarazaService,
     HotelService,

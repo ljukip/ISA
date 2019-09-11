@@ -74,13 +74,6 @@ public class AvionskaKompanija {
 	public void setOpis(String opis) {
 		this.opis = opis;
 	}
-	public List<Avion> getAvioni() {
-		return avioni;
-	}
-
-	public void setAvioni(List<Avion> avioni) {
-		this.avioni = avioni;
-	}
 
 	public Adresa getAdresa() {
 		return adresa;
